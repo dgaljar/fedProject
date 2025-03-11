@@ -37,7 +37,7 @@ import ShopHome from "./components/pages/home/shop/ShopHome";
 import ShopProductPage from "./components/pages/home/shop/ShopProductPage";
 import CartPage from "./components/pages/home/shop/Cartpage";
 import CheckoutPage from "./components/pages/home/shop/CheckoutPage";
-import Register from "./components/pages/users/Signup2";
+
 
 library.add(faLightbulb, faMoon);
 
@@ -87,9 +87,6 @@ function App() {
         <Route path="/shop/:id" element={<ShopProductPage />} />
         <Route path="/shop/cart" element={<CartPage />} />
         <Route path="/shop/checkout" element={<CheckoutPage />} />
-
-        <Route path="/register" element={<Register />} />
-
 
         {/* Admin Routes */}
         <Route path="/admin" element={<AdminLayout />}>
