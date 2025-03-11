@@ -1,0 +1,42 @@
+.author .container {
+    background-color: var(--search);
+    padding: 48px 10%;
+}
+
+.author-info div.text-start {
+    margin: 8px 0 8px 16px;
+}
+
+.author-name {
+    color: var(--heading);
+    font-size: 20px;
+    font-weight: 500;
+    line-height: 28px;
+}
+
+.author-socials {
+    list-style: none;
+    padding: 0;
+    gap: 8px;
+}
+
+.author-socials li a {
+    color: var(--white);
+    background-color: var(--dark-secondary);
+    padding: 9px;
+    border-radius: 6px;
+    font-size: 16px;
+
+}
+
+.author-creds {
+    color: var(--dark-secondary);
+    font-size: 14px;
+    line-height: 20px;
+}
+
+.author p{
+    color: var(--text);
+    font-size: 18px;
+    line-height: 26px;
+}

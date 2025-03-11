@@ -1,0 +1,250 @@
+header .container-fluid {
+  background-color: #444444;
+}
+header h4 {
+  font-size: 0.7rem;
+  color: var(--white);
+  text-align: center;
+  padding: 0.25rem 0;
+}
+
+section,
+header {
+  position: relative;
+}
+
+.shopnav::after {
+  content: "";
+  position: absolute;
+  display: block;
+  width: 100%;
+  height: 1px;
+  bottom: 0;
+  background-color: rgba(128, 128, 128, 0.2);
+}
+
+.shopHero::after {
+  content: "";
+  position: absolute;
+  display: block;
+  width: 100%;
+  height: 1px;
+  bottom: -50px;
+  background-color: rgba(128, 128, 128, 0.2);
+  z-index: 1000;
+}
+
+.shopHero h1 {
+  font-size: 3rem;
+  font-weight: 700;
+  line-height: 2rem;
+  margin-bottom: 3rem;
+}
+
+.shopHero p {
+  font-size: 1.5rem;
+  margin-bottom: 3rem;
+  width: 80vh;
+}
+
+.shopBtnDark {
+  width: 180px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #444444;
+  color: white;
+  padding: 0 10px;
+  border-radius: 4px;
+  border: none;
+  font-weight: 600;
+}
+
+.shopBtnLight {
+  width: 180px;
+  color: #444444;
+  padding: 0.7rem 1.2rem;
+  border: 1px solid #444444;
+  border-radius: 8px;
+  font-weight: 600;
+}
+
+.shopHero .slick-dots {
+  bottom: -50px;
+}
+
+/* shop categoreis */
+
+.shopCategories::after {
+  content: "";
+  position: absolute;
+  display: block;
+  width: 100%;
+  height: 1px;
+  bottom: 0px;
+  background-color: rgba(128, 128, 128, 0.2);
+  z-index: 1000;
+}
+
+.shopCategoryCard {
+  height: 200px;
+  border-radius: 8px;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-image: url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTXxZR0_1ISIJx_T4oB5-5OJVSNgSMFLe8eCw&s");
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-transform: uppercase;
+  font-weight: 700;
+  margin: 0 13px;
+  text-align: center;
+}
+
+.slick-prev::before, .slick-next::before {
+  font-family: "slick";
+  font-size: 20px;
+  line-height: 1;
+  opacity: 0.75;
+  color: white!important;
+  background-color: black;
+  border-radius: 50%;
+}
+
+.slick-next {
+  right: 0px;
+}
+.slick-prev {
+  left: 0px;
+  z-index: 10000;
+}
+
+/* new products */
+
+.productheading a {
+  color: inherit;
+  font-size: 1rem;
+}
+
+.productheading h2 {
+  font-weight: 600;
+}
+
+.shopproductcard {
+  margin: 0 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.shopproductcard img {
+  height: 400px;
+  object-fit: cover;
+  border-radius: 0;
+}
+
+.shopproductdesc {
+  height: 260px;
+  padding: 10px 0 10px 0;
+}
+
+.shopproductdesc h2 {
+  height: 80px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+.shopproductdesc p {
+    height: 60px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
+
+.footer1 {
+  background-color: #f6f6f6;
+}
+.footer1 .discount {
+  height: 200px;
+  margin-top: 58px;
+}
+.discount h2 {
+  font-size: 22px;
+  font-weight: 700;
+  margin-bottom: 11px;
+}
+
+.discount p {
+  font-size: 15px;
+  color: #7a7a7a;
+  width: 395px;
+}
+
+.footer2::after {
+  position: absolute;
+  content: "";
+  display: block;
+  height: 2px;
+  width: 100%;
+  bottom: 0;
+  background-color: rgba(128, 128, 128, 0.2);
+}
+
+.chat {
+  background-color: #444444;
+  width: 45px;
+  height: 45px;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 100%;
+  aspect-ratio: 1;
+  position: absolute;
+  top: -70px;
+  right: 50px;
+  z-index: 99;
+}
+
+/* product page  */
+
+.prodTitleContainer {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 23px;
+}
+
+.prodTitle h2 {
+  font-size: 20px;
+  font-weight: 700;
+  color: #444444;
+}
+
+.prodTitle span {
+  font-size: 16px;
+  color: #7A7A7A;
+}
+
+.prices {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 17px;
+}
+.prices span:first-child {
+  font-size: 29px;
+  font-weight: 700;
+}
+
+.price span:last-child {
+  font-size: 14px;
+  color: #7A7A7A;
+}
+
+
+
+/* cart */
+.btn-danger {
+  background-color: #dc3545!important;
+}
+
+.ligthblue {
+  background-color: #007bff!important;
+}

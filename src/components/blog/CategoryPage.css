@@ -1,0 +1,21 @@
+.categorySingles {
+    margin-top: 4rem;
+    margin-bottom: 2rem;
+}
+.postimg {
+    width: 100%;
+    object-fit: cover;
+    display: grid;
+}
+
+.namedate {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    color: #97989F;
+}
+
+p {
+    color: var(--text);
+}

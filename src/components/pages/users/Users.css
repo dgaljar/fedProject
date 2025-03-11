@@ -1,0 +1,263 @@
+  /* login */
+
+  .login-intro{
+    background-color: var(--bg-dark);
+    min-height: 100dvh;
+    padding-top: 52px;
+    padding-bottom: 52px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.login-intro div{
+	max-width: 480px;
+}
+
+.login-intro img:first-child{
+	margin-left: 52px;
+	max-width: 196px;
+}
+
+
+
+.login-intro h1{
+	color: var(--white);
+	font-size: 40px;
+	font-weight: bold;
+}
+
+.login-intro p{
+	color: var(--white);
+	font-size: 18px;
+	line-height: 1.7;
+	letter-spacing: -1%;
+}
+
+.login-form{
+	display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+}
+
+.login-form div {
+    width: 100%;
+    max-width: 425px;
+    margin: 0 auto;
+}
+
+
+.login-form input, .login-form label, .login-form button, .login-form input:not(input.checkbox){
+	display: block;
+	width: 100%;
+}
+
+.login-form h2 {
+    font-size: 28px;
+    font-weight: 600;
+}
+
+.login-form div p:first-of-type{
+    margin-bottom: 54px;
+}
+
+.login-form label {
+    font-size: 14px;
+    font-weight: 500;
+    color: #425466;
+    margin-bottom: 8px;
+}
+
+.login-form input {
+    border: none;
+    background-color: var(--search);
+    color: var(--lighttext);
+    font-size: 15px;
+    font-weight: 500;
+    line-height: 15px;
+    border-radius: 6px;
+    padding: 16px;
+}
+
+.login-form input:focus-visible {
+    outline: none;
+}
+
+
+
+.login-form .forgotpassword{
+    color: var(--heading);
+    display: block;
+    text-align: right;
+    font-size: 11px;
+    color: #777e90;
+    line-height: 12px;
+    margin-bottom: 30px;
+    margin-top: 8px;
+}
+
+.login-form button {
+    background-color: var(--heading);
+    border-radius: 90px;
+    border: none;
+    color: var(--white);
+    padding: 16px 24px;
+    margin-bottom: 30px;
+}
+
+.seperator {
+    color: var(--lighttext);
+    font-size: 12px;
+    font-weight: 600;
+    text-align: center;
+    position: relative;
+
+}
+.seperator:after {
+    position: absolute;
+    display: block;
+    content: "";
+    width: 25%;
+    height: 1px;
+    background-color: #EDF2F7;
+    top: 50%;
+   
+}
+
+.seperator:before {
+    position: absolute;
+    display: block;
+    content: "";
+    width: 25%;
+    height: 1px;
+    background-color: #EDF2F7;
+    right: 0;
+    top: 50%;
+}
+
+.login-form ul {
+    display: flex;
+    list-style-type: none;
+    justify-content: center;
+    padding: 0;
+}
+
+.login-form ul li {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    width: 52px;
+    height: 52px;
+    margin: 0 16px;
+    box-shadow: 0px 0px 1.5px 0px rgba(0,0,0,0.5);
+    margin-bottom: 50px;
+}
+
+.login-form p:last-of-type {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--lighttext);
+}
+
+.login-form a:last-of-type {
+    color: #141416;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+form {
+    position: relative;
+}
+
+:is(form.loading)::after {
+    content: "";
+    display: flex;
+    justify-content:center;
+    align-items: center;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    border-radius: 6px;
+    background-image: url(../../../../public/img/icons8-iphone-spinner.gif);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-color: hsl(0 0% 100% / 0.1);
+    backdrop-filter: blur(1rem);
+}
+
+/* signup */
+.passwordreq {
+    margin-top: 8px;
+    color: var(--lighttext);
+    font-size: 11px;
+    margin-bottom: 30px;
+}
+.login-form input[type="checkbox"] {
+    display: block;
+    width: auto;
+    margin-top: 5px;
+    margin-right: 10px;
+}
+
+.login-form .terms {
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+.login-form .terms-policy {
+    color: var(--heading);
+    font-size: 14px;
+    font-weight: 700;
+}
+
+
+
+.instructions {
+    font-size: 0.75rem;
+    border-radius: 0.5rem;
+    background: #000;
+    color: #fff;
+    padding: 0.25rem;
+    position: relative;
+    bottom: -10px;
+}
+
+.instructions > svg {
+    margin-right: 0.25rem;
+}
+
+.offscreen {
+    position: absolute;
+    left: -9999px;
+}
+
+.hide {
+    display: none;
+}
+
+.valid {
+    color: limegreen;
+    margin-left: 0.25rem;
+}
+
+.invalid {
+    color: red;
+    margin-left: 0.25rem;
+}
+
+.errmsg {
+    background-color: lightpink;
+    color: firebrick;
+    font-weight: bold;
+    padding: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.line {
+    display: inline-block;
+}
