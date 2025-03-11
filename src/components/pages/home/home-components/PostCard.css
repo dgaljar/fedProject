@@ -1,0 +1,43 @@
+.post-card {
+    height: 473px;
+    padding: 16px;
+    border-radius: 12px;
+    border: 1px solid #E8E8EA;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.posts h3 {
+    font-size: 24px;
+    font-weight: 600;
+    line-height: 26px;
+    margin-bottom: 20px;
+}
+
+.posts h3 a {
+    color: var(--heading);
+}
+
+.posts span {
+    font-size: 16px;
+    color: #97989F;
+}
+
+.posts .post-author{
+    display: flex;
+    align-items: center;
+}
+
+.posts .namedate {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.postimg {
+    height: 200px;
+    object-fit: cover;
+    border-radius: 10px;
+}

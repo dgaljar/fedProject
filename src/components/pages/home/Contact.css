@@ -1,0 +1,144 @@
+/* contact */
+
+.contact-title h2 {
+    font-size: 36px;
+    font-weight: 700;
+}
+
+.contact-title span {
+    font-size: 18px;
+    font-weight: 500;
+    color: var(--dark-secondary);
+}
+
+.contact-form .col-md-5 {
+    background-color: var(--heading);
+    padding: 40px;
+}
+
+.contact-header, .contact-header h3, .contact-info li a, .contact-info li, .contact-socials a {
+    color: var(--white);
+}
+
+
+.contact-header {
+    margin-bottom: 100px;
+}
+
+.contact-form ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.contact-info li {
+    display: flex;
+    margin-bottom: 50px;
+}
+
+.contact-info li i{
+    margin-right: 28px;
+}
+
+.contact-socials {
+    display: flex;
+    margin-top: 150px;
+
+
+}
+
+.contact-socials li {
+    background-color:var(--text);
+    text-align: center;
+    width: 30px;
+    border-radius: 50%;
+    margin-right: 24px;
+}
+
+/* contact form */
+
+.contact-form .col-md-7 {
+    padding: 40px;
+}
+
+.contact-form h3 {
+    font-size: 20px;
+}
+
+.contact-form .text-input {
+    border: none;
+    border-bottom: 1px solid var(--dark-secondary);
+    width: 100%;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--lighttext);
+    padding: 5px 0;
+    background-color: var(--white);
+}
+
+.contact-form .text-input:focus-visible {
+    outline: none;
+}
+.contact-form label {
+    font-size: 12px;
+    color: var(--dark-secondary);
+}
+
+ /* Customize the label (the container) */
+ .checkcontainer {
+    display: flex;
+    align-items: center;
+    position: relative;
+    cursor: pointer;
+    font-size: 12px;
+    padding-left: 25px;
+    padding-right: 15px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+  
+  /* Hide the browser's default radio button */
+  .checkcontainer input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+  }
+
+  .radio {
+    flex-wrap: nowrap;
+  }
+  
+  /* Create a custom radio button */
+  .radiobtn {
+    position: absolute;
+    top: 1.5px;
+    left: 0;
+    height: 13px;
+    width: 13px;
+    background-color: #eee;
+    border-radius: 50%;
+  }
+  
+  /* On mouse-over, add a grey background color */
+  .checkcontainer:hover input ~ .radiobtn {
+    background-color: #ccc;
+  }
+  
+  /* When the radio button is checked, add a blue background */
+  .checkcontainer input:checked ~ .radiobtn {
+    background-image: url(../../../../public/img/Vector.png);
+  }
+
+  .contact-form .btn {
+    max-width: 214px;
+    padding: 15px 48px;
+    background-color: var(--primary);
+  }
+
+  .resize {
+    resize: none; /* Disables manual resizing */
+    
+  }
