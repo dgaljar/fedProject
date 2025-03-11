@@ -2,6 +2,7 @@ import React, { useEffect, useState, useContext } from "react";
 import { searchUsers } from "../../services/api";
 import { Link } from "react-router-dom";
 import AuthContext from "../users/context/AuthProwider";
+import { credentials } from "../../services/config";
 
 const AdminUser = () => {
   const [users, setUsers] = useState([]);
@@ -22,8 +23,8 @@ const AdminUser = () => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          username: "",
-          password: "",
+          username: credentials.username,
+          password: credentials.password,
         }),
       }
     );
