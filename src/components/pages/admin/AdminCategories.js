@@ -3,19 +3,19 @@ import React from "react";
 const AdminCategories = () => {
   return (
     <>
-      <div class="container-fluid content mt-4">
-        <h1 class="h2">Categories</h1>
-        <div class="container-fluid">
-          <div class="row">
-            <div class="col-md-6">
-              <label for="">Category</label>
-              <input type="text" class="form-control" />
-              <button class="btn btn-primary mt-3 mb-3">Add Category</button>
+      <div className="container-fluid content mt-4">
+        <h1 className="h2">Categories</h1>
+        <div className="container-fluid">
+          <div className="row">
+            <div className="col-md-6">
+              <label htmlFor="">Category</label>
+              <input type="text" className="form-control" />
+              <button className="btn btn-primary mt-3 mb-3">Add Category</button>
             </div>
-            <div class="col-md-6">
-              <div class="table-responsive small">
-                <table class="table table-bordered">
-                  <thead class="thead-dark">
+            <div className="col-md-6">
+              <div className="table-responsive small">
+                <table className="table table-bordered">
+                  <thead className="thead-dark">
                     <tr>
                       <th>ID</th>
                       <th>Category title</th>

@@ -60,7 +60,7 @@ const AdminLayout = () => {
                   <img
                     className="profile-img"
                     src="https://placehold.co/40x40"
-                    alt=""
+                    alt="placeholder"
                   />
                 </li>
                 <li className="user-menu">

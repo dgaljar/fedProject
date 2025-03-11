@@ -7,7 +7,7 @@ import {
   faTimes,
   faInfoCircle,
 } from "@fortawesome/free-solid-svg-icons";
-import { credentials } from "../../services/config"
+import { credentials } from "../../services/config";
 
 const USER_REGEX = /^[A-z][A-z0-9-_]{3,23}$/;
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
@@ -32,8 +32,9 @@ const SignUp = () => {
 
   const [errMsg, setErrMsg] = useState("");
   const [success, setSuccess] = useState(false);
-
   const [email, setEmail] = useState("");
+  
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     userRef.current.focus();
@@ -60,8 +61,9 @@ const SignUp = () => {
       return;
     }
 
+    setIsLoading(true);
+
     try {
-      // 1️⃣ Authenticate as Admin to Get JWT Token
       const authResponse = await fetch(`${API_BASE_URL}/jwt-auth/v1/token`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -78,19 +80,16 @@ const SignUp = () => {
       const authData = await authResponse.json();
       const token = authData.token;
 
-      console.log("Admin JWT Token:", token);
-
-      // 2️⃣ Register the New User with the Token
       const registerResponse = await fetch(`${API_BASE_URL}/wp/v2/users`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`, // Send token in Authorization header
+          Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify({
           username: user,
           password: pwd,
-          email: `${user}@example.com`, // Adjust email logic as needed
+          email: email,
           roles: ["subscriber"],
         }),
       });
@@ -99,14 +98,12 @@ const SignUp = () => {
         throw new Error("User registration failed.");
       }
 
-      const registerData = await registerResponse.json();
-      console.log("User Registered:", registerData);
-
       setSuccess(true);
     } catch (err) {
-      console.error("Error:", err);
       setErrMsg(err.message);
       errRef.current.focus();
+    } finally {
+      setIsLoading(false);
     }
   };
   return (
@@ -148,7 +145,10 @@ const SignUp = () => {
                   >
                     {errMsg}
                   </p>
-                  <form onSubmit={handleSubmit}>
+                  <form
+                    className={isLoading ? "loading" : ""}
+                    onSubmit={handleSubmit}
+                  >
                     <label htmlFor="username">
                       Username:
                       <FontAwesomeIcon

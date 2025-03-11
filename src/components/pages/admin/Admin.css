@@ -356,6 +356,26 @@ input:focus-visible, textarea:focus-visible {
 .functionButtons{
     all: unset;
 }
+tbody {
+    position: relative;
+}
+.loading::after {
+    content: "";
+    display: flex;
+    justify-content:center;
+    align-items: center;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    border-radius: 6px;
+    background-image: url(../../../../public/img/icons8-iphone-spinner.gif);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-color: hsl(0 0% 100% / 0.1);
+    backdrop-filter: blur(1rem);
+}
 
 @media (max-width: 767px) {
     .sidebar {
