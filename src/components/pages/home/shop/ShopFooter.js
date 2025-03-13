@@ -40,12 +40,11 @@ const ShopFooter = () => {
                   {[...Array(5)].map((star, index) => {
                     const current = index + 1;
                     return (
-                      <>
-                        <FontAwesomeIcon
-                          icon={faStar}
-                          color={current < 5 ? "gold" : ""}
-                        />
-                      </>
+                      <FontAwesomeIcon
+                        key={index}
+                        icon={faStar}
+                        color={current < 5 ? "gold" : ""}
+                      />
                     );
                   })}
                 </div>
@@ -60,12 +59,11 @@ const ShopFooter = () => {
                   {[...Array(5)].map((star, index) => {
                     const current = index + 1;
                     return (
-                      <>
-                        <FontAwesomeIcon
-                          icon={faStar}
-                          color={current <= 5 ? "gold" : ""}
-                        />
-                      </>
+                      <FontAwesomeIcon
+                        key={index}
+                        icon={faStar}
+                        color={current <= 5 ? "gold" : ""}
+                      />
                     );
                   })}
                 </div>
@@ -83,12 +81,11 @@ const ShopFooter = () => {
                   {[...Array(5)].map((star, index) => {
                     const current = index + 1;
                     return (
-                      <>
-                        <FontAwesomeIcon
-                          icon={faStar}
-                          color={current <= 5 ? "gold" : ""}
-                        />
-                      </>
+                      <FontAwesomeIcon
+                        key={index}
+                        icon={faStar}
+                        color={current <= 5 ? "gold" : ""}
+                      />
                     );
                   })}
                 </div>
@@ -106,12 +103,11 @@ const ShopFooter = () => {
                   {[...Array(5)].map((star, index) => {
                     const current = index + 1;
                     return (
-                      <>
-                        <FontAwesomeIcon
-                          icon={faStar}
-                          color={current <= 5 ? "gold" : ""}
-                        />
-                      </>
+                      <FontAwesomeIcon
+                        key={index}
+                        icon={faStar}
+                        color={current <= 5 ? "gold" : ""}
+                      />
                     );
                   })}
                 </div>
@@ -124,17 +120,14 @@ const ShopFooter = () => {
               </div>
             </div>
           </div>
-
         </div>
-
-       
       </section>
 
       <section className="footer3">
         <div className="container position-relative">
           <div className="chat">
             <Link to="#">
-            <FontAwesomeIcon icon={faComment} color={"white"} />
+              <FontAwesomeIcon icon={faComment} color={"white"} />
             </Link>
           </div>
           <div className="row">

@@ -12,8 +12,6 @@ import Authors from './components/pages/home/Authors';
 import Contact from './components/pages/home/Contact';
 import SinglePost from './components/blog/SinglePost';
 import Category from './components/blog/Category';
-import JsonPost from "./components/test/JsonPost";
-import JsonPostSingle from "./components/test/JsonPostSingle";
 import Blog from "./components/blog/Blog";
 import BlogSingle from "./components/blog/BlogSingle";
 import AuthorsPage from "./components/blog/AuthorsPage";
@@ -36,7 +34,8 @@ import EditUser from "./components/pages/admin/EditUser";
 import ShopHome from "./components/pages/home/shop/ShopHome";
 import ShopProductPage from "./components/pages/home/shop/ShopProductPage";
 import CartPage from "./components/pages/home/shop/Cartpage";
-import CheckoutPage from "./components/pages/home/shop/CheckoutPage";
+import ShopCheckout from "./components/pages/home/shop/ShopCheckout";
+import NotFound from "./components/pages/home/NotFound";
 
 
 library.add(faLightbulb, faMoon);
@@ -71,8 +70,6 @@ function App() {
         <Route path="/blog/:slug" element={<SinglePost />} />
         <Route path="/category" element={<Category />} />
         <Route path="/category/:category" element={<CategoryPage />} />
-        <Route path="/jsonpost" element={<JsonPost />} />
-        <Route path="/JsonPostSingle/:id" element={<JsonPostSingle />} />
         <Route path="/bloge" element={<Blog />} />
         <Route path="/bloge/:slug" element={<BlogSingle />} />
         <Route path="/author/:author" element={<AuthorsPage />} />
@@ -86,7 +83,8 @@ function App() {
         <Route path="/shop" element={<ShopHome />} />
         <Route path="/shop/:id" element={<ShopProductPage />} />
         <Route path="/shop/cart" element={<CartPage />} />
-        <Route path="/shop/checkout" element={<CheckoutPage />} />
+        <Route path="/shop/checkout" element={<ShopCheckout />} />
+        <Route path="*" element={<Notfound />} />
 
         {/* Admin Routes */}
         <Route path="/admin" element={<AdminLayout />}>

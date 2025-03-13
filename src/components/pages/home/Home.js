@@ -7,13 +7,15 @@ import PostCardDos from "./home-components/PostCardDos";
 import Pagination from "../../services/Pagination"; // Import Pagination component
 
 const Home = () => {
+const REACT_APP_URL = process.env.REACT_APP_URL;
+
   const [posts, setPosts] = useState([]);
   const [count, setCount] = useState(1);
   const [totalPages, setTotalPages] = useState(1); // Default to 1 to avoid null errors
 
   useEffect(() => {
     fetch(
-      `https://frontend.internetskimarketing.eu/backend/wp-json/wp/v2/posts?per_page=6&page=${count}&_embed&has_featured_media=true`
+      `${REACT_APP_URL}wp-json/wp/v2/posts?per_page=6&page=${count}&_embed&has_featured_media=true`
     )
       .then((response) => {
         const totalPagesHeader = response.headers.get("X-WP-TotalPages");
@@ -25,7 +27,7 @@ const Home = () => {
       .then((data) => {
         setPosts(data);
       });
-  }, [count]);
+  }, [REACT_APP_URL, count]);
 
   const handlePageClick = (pageNumber) => {
     setCount(pageNumber);

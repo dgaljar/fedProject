@@ -1,37 +1,39 @@
+import { useState } from "react";
 import React from "react";
 import "./Shop.css";
 import { Link } from "react-router-dom";
 
 const ShopSingleProduct = ({ product }) => {
-  
-  const addToCart = () => {
+  const [added, setAdded] = useState(false);
 
+  const addToCart = () => {
+    
     // JSON.parse kako bi pretovirli iz stringa u JSON
     // JSON.stringify kako bi pretvorili u string
 
-    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
 
-    const productInCart = cart.find((item) => item.id === product.id )
-    if(productInCart) {
-      productInCart.quantity +=1;
+    const productInCart = cart.find((item) => item.id === product.id);
+    if (productInCart) {
+      productInCart.quantity += 1;
     } else {
       cart.push({
         id: product.id,
-        thumbnail : product.thumbnail,
-        title : product.title,
-        price : product.price,
-        category : product.category,
+        thumbnail: product.thumbnail,
+        title: product.title,
+        price: product.price,
+        category: product.category,
         quantity: 1,
       });
     }
 
-
-
-
-    localStorage.setItem('cart', JSON.stringify(cart));
-
+    localStorage.setItem("cart", JSON.stringify(cart));
+    setAdded(true);
+    setTimeout(() => {
+      setAdded(false)
+    }, "2000")
     console.log(cart);
-  }
+  };
 
   return (
     <>
@@ -48,9 +50,13 @@ const ShopSingleProduct = ({ product }) => {
             </div>
 
             <span>{product.price}$</span>
-            <button onClick={addToCart} className="shopBtnDark">
-              Dodaj proizvod
-            </button>
+            {!added ? (
+              <button onClick={addToCart} className="shopBtnDark">
+                Dodaj proizvod
+              </button>
+            ) : (
+              <Link className="shopBtnDark greenText" to="/shop/cart">Pogledaj proizvod</Link>
+            )}
           </div>
         </div>
       </div>
