@@ -83,6 +83,10 @@ h1, h2, h3, h4 {
     display: none;
 }
 
+.fullH {
+    min-height: 75vh;
+}
+
 @media (max-width: 768px) {
     .hero-card {
         position: relative;

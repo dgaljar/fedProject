@@ -38,7 +38,6 @@ const Category = () => {
       });
   }, []);
 
-
   useEffect(() => {
     if (!selectedCategory) return;
 
@@ -82,7 +81,7 @@ const Category = () => {
   };
 
   return (
-    <section className="posts">
+    <section className="posts fullH">
       <div className="container mb-3">
         <div className="row mb-4">
           <div className="text-center d-flex flex-column align-items-center">

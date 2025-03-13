@@ -22,12 +22,10 @@ const Author = () => {
         return response.json();
       })
       .then((data) => {
-        // Filter authors with post count > 0
-
-        setAuthors(data);
-
-        // Select first author automatically if available
-
+        if (data.length > 0) {
+          setAuthors(data);
+          setSelectedAuthor(data[0].id); // Set default author ID
+        }
         setIsAuthorsLoading(false);
       })
       .catch((error) => {
@@ -39,7 +37,7 @@ const Author = () => {
   // Fetch posts for selected author
   useEffect(() => {
     if (!selectedAuthor) return;
-
+  
     setIsPostsLoading(true);
     fetch(
       `https://frontend.internetskimarketing.eu/backend/wp-json/wp/v2/posts?_embed&author=${selectedAuthor}&per_page=6&page=${count}`
@@ -58,7 +56,7 @@ const Author = () => {
         console.error("Error fetching posts:", error);
         setIsPostsLoading(false);
       });
-  }, [selectedAuthor, count]);
+  }, [selectedAuthor, count]); // Re-run when `selectedAuthor` changes
 
   const handlePageClick = (pageNumber) => {
     if (pageNumber < 1 || pageNumber > totalPages) return;
@@ -73,7 +71,7 @@ const Author = () => {
   };
 
   return (
-    <section className="posts">
+    <section className="posts fullH">
       <div className="container mb-3">
         {/* Author Selection Dropdown */}
         <div className="row mb-4">

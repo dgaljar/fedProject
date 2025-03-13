@@ -7,6 +7,7 @@ const SignIn = () => {
   const { setAuth } = useContext(AuthContext);
   const navigate = useNavigate();
 
+  // check if the user is already logged in
   useEffect(() => {
     if (localStorage.getItem("token")) {
       navigate("/");
