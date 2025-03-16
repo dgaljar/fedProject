@@ -36,6 +36,7 @@ import ShopProductPage from "./components/pages/home/shop/ShopProductPage";
 import CartPage from "./components/pages/home/shop/Cartpage";
 import ShopCheckout from "./components/pages/home/shop/ShopCheckout";
 import NotFound from "./components/pages/home/NotFound";
+import Construction from "./components/pages/admin/Construction";
 
 
 library.add(faLightbulb, faMoon);
@@ -84,7 +85,7 @@ function App() {
         <Route path="/shop/:id" element={<ShopProductPage />} />
         <Route path="/shop/cart" element={<CartPage />} />
         <Route path="/shop/checkout" element={<ShopCheckout />} />
-        <Route path="*" element={<Notfound />} />
+        <Route path="*" element={<NotFound />} />
 
         {/* Admin Routes */}
         <Route path="/admin" element={<AdminLayout />}>
@@ -95,6 +96,7 @@ function App() {
           <Route path="users" element={<AdminUser />} />
           <Route path="users/add" element={<AdminAddUser />} />
           <Route path="users/:id" element={<EditUser />} />
+          <Route path="cs" element={<Construction />}/>
         </Route>
       </Routes>
 

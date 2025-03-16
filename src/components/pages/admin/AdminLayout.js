@@ -41,6 +41,12 @@ const AdminLayout = () => {
     return <Navigate to="/" />;
   }
 
+  const logout = () => {
+    localStorage.removeItem('token');
+    localStorage.removeItem('username');
+    window.location.reload();
+  }
+
   return (
     <>
       <nav>
@@ -52,9 +58,9 @@ const AdminLayout = () => {
             <div className="active-user col-md-6 col-12 text-start text-md-end order-3">
               <ul className="d-flex justify-content-md-end align-items-center">
                 <li>
-                  <a href="">
+                  <Link to="/admin/cs">
                     <i className="fa-regular fa-bell position-relative animate__animated animate__swing"></i>
-                  </a>
+                  </Link>
                 </li>
                 <li>
                   <img
@@ -77,10 +83,10 @@ const AdminLayout = () => {
                     }`}
                   >
                     <li>
-                      <a href="">Profile</a>
+                      <Link to="/admin/cs">Profile</Link>
                     </li>
                     <li>
-                      <a href="">Log Out</a>
+                      <a href="#" onClick={logout}>Log Out</a>
                     </li>
                   </ul>
                 </li>
@@ -105,7 +111,7 @@ const AdminLayout = () => {
         <div className={`sidebar ${toggle ? "show" : ""}`}>
           <ul className="sidebar-nav">
             <li>
-              <Link to="/admin">
+              <Link to="/admin/cs">
                 <i className="fa-solid fa-chart-line me-2"></i> Dashboard
               </Link>
             </li>
@@ -166,7 +172,7 @@ const AdminLayout = () => {
               </ul>
             </li>
             <li>
-              <Link to="/admin/settings">
+              <Link to="/admin/cs">
                 <i className="fa-solid fa-gears me-2"></i> Settings
               </Link>
             </li>

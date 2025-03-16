@@ -11,6 +11,7 @@
     --lightbtn: #f6f7ff;
     --footer: #f6f6f7;
     --lighttext: #696a75;
+    --success: rgb(78, 192, 78);
 }
 
 .darkmode {
@@ -87,6 +88,9 @@ h1, h2, h3, h4 {
     min-height: 75vh;
 }
 
+.success:disabled {
+    background-color: var(--success)!important;
+}
 @media (max-width: 768px) {
     .hero-card {
         position: relative;

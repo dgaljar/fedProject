@@ -8,6 +8,7 @@ import {
   faInfoCircle,
 } from "@fortawesome/free-solid-svg-icons";
 import { credentials } from "../../services/config";
+import ReCAPTCHA from "react-google-recaptcha";
 
 const USER_REGEX = /^[A-z][A-z0-9-_]{3,23}$/;
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
@@ -17,6 +18,8 @@ const API_BASE_URL = "https://frontend.internetskimarketing.eu/backend/wp-json";
 const SignUp = () => {
   const userRef = useRef();
   const errRef = useRef();
+  const [showRecaptcha, setShowRecaptcha] = useState(false);
+  const [captchaValue, setCaptchaValue] = useState(null);
 
   const [user, setUser] = useState("");
   const [validName, setValidName] = useState(false);
@@ -33,7 +36,7 @@ const SignUp = () => {
   const [errMsg, setErrMsg] = useState("");
   const [success, setSuccess] = useState(false);
   const [email, setEmail] = useState("");
-  
+
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
@@ -55,6 +58,11 @@ const SignUp = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (!captchaValue) {
+      alert("Please complete the CAPTCHA first!");
+      return;
+    }
 
     if (!validName || !validPwd || !validMatch) {
       setErrMsg("Invalid Entry");
@@ -270,7 +278,10 @@ const SignUp = () => {
                       Must match the first password input field.
                     </p>
 
-                    <label for="" className="d-flex align-items-start terms">
+                    <label
+                      htmlFor=""
+                      className="d-flex align-items-start terms"
+                    >
                       <input type="checkbox" className="checkbox" />
                       <span>
                         By creating an account means you agree to the{" "}
@@ -283,10 +294,26 @@ const SignUp = () => {
                         </Link>
                       </span>
                     </label>
-
-                    <button disabled={!validName || !validPwd || !validMatch}>
+                    
+                    {!showRecaptcha ? (
+                      <button disabled={!validName || !validPwd || !validMatch} onClick={() => setShowRecaptcha(true)}>
                       Sign Up
                     </button>
+                  ) : (
+                    <div className="col-12 text-center">
+                      <ReCAPTCHA
+                        sitekey="6LeTYvYqAAAAAEAq75bi_aFR2eQET_dhPbj53CPL" // Replace with your reCAPTCHA site key
+                        onChange={(value) => setCaptchaValue(value)}
+                      />
+                      {captchaValue && (
+                        <button type="submit" className="mt-2">
+                          {!success ? "Submit" : "Message Sent"}
+                        </button>
+                      )}
+                    </div>
+                  )}
+
+
                   </form>
                 </>
               )}
@@ -303,7 +330,7 @@ const SignUp = () => {
                       fill="none"
                       xmlns="http://www.w3.org/2000/svg"
                     >
-                      <g clip-path="url(#clip0_0_4466)">
+                      <g clipPath="url(#clip0_0_4466)">
                         <path
                           d="M5.13758 14.5092L4.33065 17.5216L1.38136 17.584C0.499949 15.9491 0 14.0787 0 12.0911C0 10.169 0.46744 8.35647 1.29601 6.7605H1.29664L3.92235 7.24188L5.07256 9.85183C4.83182 10.5537 4.70061 11.3071 4.70061 12.0911C4.7007 12.9419 4.85482 13.7571 5.13758 14.5092Z"
                           fill="#555555"
@@ -344,8 +371,8 @@ const SignUp = () => {
                       xmlns="http://www.w3.org/2000/svg"
                     >
                       <path
-                        fill-rule="evenodd"
-                        clip-rule="evenodd"
+                        fillRule="evenodd"
+                        clipRule="evenodd"
                         d="M14.9724 4.81107C15.9181 3.6703 16.5531 2.08065 16.3797 0.5C15.0197 0.555126 13.3737 1.40564 12.3999 2.54641C11.5251 3.55668 10.7595 5.17333 10.9666 6.72248C12.482 6.84061 14.0312 5.95297 14.9747 4.81107H14.9724ZM18.3748 14.844C18.413 18.9301 21.9617 20.2902 22 20.3082C21.9719 20.4038 21.4348 22.2455 20.1311 24.1479C19.0052 25.7927 17.8366 27.4318 15.9947 27.4656C14.1855 27.4982 13.6045 26.3934 11.5352 26.3934C9.46813 26.3934 8.82189 27.4318 7.10834 27.4982C5.33175 27.5657 3.97847 25.7196 2.84136 24.0815C0.522102 20.729 -1.25112 14.6089 1.13006 10.4778C2.31108 8.42576 4.42543 7.12636 6.71992 7.09374C8.46499 7.05999 10.1121 8.26713 11.1783 8.26713C12.2456 8.26713 14.2474 6.81586 16.3516 7.02849C17.2331 7.06561 19.7055 7.38399 21.2941 9.70716C21.1657 9.78591 18.3432 11.4284 18.3736 14.844"
                         fill="#332218"
                       />
@@ -362,8 +389,8 @@ const SignUp = () => {
                       xmlns="http://www.w3.org/2000/svg"
                     >
                       <path
-                        fill-rule="evenodd"
-                        clip-rule="evenodd"
+                        fillRule="evenodd"
+                        clipRule="evenodd"
                         d="M3.70655 25.5V14.4575H0V9.85625H3.70655V6.175C3.70655 2.37125 6.1306 0.5 9.54642 0.5C11.1826 0.5 12.5897 0.62125 13 0.675V4.65H10.6301C8.77239 4.65 8.33943 5.52875 8.33943 6.815V9.85625H12.9711L12.0447 14.4563H8.33943L8.41369 25.5"
                         fill="#555555"
                       />

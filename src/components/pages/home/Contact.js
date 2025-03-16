@@ -1,7 +1,36 @@
-import React from "react";
+import React, { useState, useRef } from "react";
 import "./Contact.css";
+import emailjs from "@emailjs/browser";
+import ReCAPTCHA from "react-google-recaptcha";
 
 const Contact = () => {
+
+  const form = useRef();
+  const [showRecaptcha, setShowRecaptcha] = useState(false);
+  const [captchaValue, setCaptchaValue] = useState(null);
+  const [success, setSuccess] = useState(false);
+
+  const sendEmail = (e) => {
+    e.preventDefault();
+    
+    if (!captchaValue) {
+      alert("Please complete the CAPTCHA first!");
+      return;
+    }
+
+    emailjs
+      .sendForm('service_x456jqo', 'template_04vdy4q', form.current, {
+        publicKey: '15yddXDGFOwEIMyzL',
+      })
+      .then(() => {
+          console.log('SUCCESS!');
+          setSuccess(true);
+      })
+      .catch((error) => {
+          console.log('FAILED...', error.text);
+      });
+  };
+
   return (
     <>
       <section className="contact-title mb-4 mt-4">
@@ -73,63 +102,80 @@ const Contact = () => {
             </div>
 
             <div className="col-md-7">
-              <form action="">
+              <form ref={form} onSubmit={sendEmail}>
                 <div className="row">
                   <div className="col-md-6 mb-md-4">
-                    <label for="firstName">First Name</label>
-                    <input type="text" id="firstName" className="text-input" placeholder="Ivan" />
+                    <label htmlFor="firstName">First Name</label>
+                    <input name="first_name" type="text" id="firstName" className="text-input" placeholder="Ivan" />
                   </div>
                   <div className="col-md-6">
-                    <label for="lastName">Last name</label>
-                    <input type="text" id="lastName" className="text-input" placeholder="Srna"/>
+                    <label htmlFor="lastName">Last name</label>
+                    <input name="last_name" type="text" id="lastName" className="text-input" placeholder="Srna"/>
                   </div>
                   <div className="col-md-6">
-                    <label for="email">Email</label>
-                    <input type="email" id="email" className="text-input" placeholder="elektronska.posta@posta.hr"/>
+                    <label htmlFor="email">Email</label>
+                    <input name="email" type="email" id="email" className="text-input" placeholder="elektronska.posta@posta.hr"/>
                   </div>
                   <div className="col-md-6">
-                    <label for="phone">Phone Number</label>
-                    <input type="tel" id="phone" className="text-input" placeholder="+385 98 225 883" />
+                    <label htmlFor="phone">Phone Number</label>
+                    <input name="phone_number" type="tel" id="phone" className="text-input" placeholder="+385 98 225 883" />
                   </div>
                   <div className="col-12 mt-5 mb-5 ">
                     <h3>Select Subject</h3>
                     <div className="d-md-flex">
                       <label className="checkcontainer">
-                        General Inquiry
-                        <input type="radio" name="general" />
+                        General Inquiry 4
+                        <input name="subject" type="radio"  value="1"/>
                         <span className="radiobtn"></span>
                       </label>
                       <label className="checkcontainer">
-                        General Inquiry
-                        <input type="radio" name="general" />
+                        General Inquiry 3
+                        <input name="subject" type="radio" value="2" />
                         <span className="radiobtn"></span>
                       </label>
                       <label className="checkcontainer">
-                        General Inquiry
-                        <input type="radio" name="general" />
+                        General Inquiry 2
+                        <input name="subject" type="radio" value="3" />
                         <span className="radiobtn"></span>
                       </label>
                       <label className="checkcontainer">
-                        General Inquiry
-                        <input type="radio" name="general" />
+                        General Inquiry 1
+                        <input name="subject" type="radio" value="4" />
                         <span className="radiobtn"></span>
                       </label>
                     </div>
                   </div>
                   <div className="col-md-12 mb-5">
-                    <label className="message" for="message">
+                    <label className="message" htmlFor="message">
                       Message
                     </label>
                     <textarea
+                      name="message"
                       id="message"
                       type="text"
                       className="text-input resize"
                       placeholder="Write your message"
                     ></textarea>
                   </div>
-                  <button type="submit" className="btn ms-auto">
-                    Send Message
-                  </button>
+
+                  {!showRecaptcha ? (
+                    <button type="button" className="btn ms-auto" onClick={() => setShowRecaptcha(true)}>
+                      Send Message
+                    </button>
+                  ) : (
+                    <div className="col-12 text-center">
+                      <ReCAPTCHA
+                        sitekey="6LeTYvYqAAAAAEAq75bi_aFR2eQET_dhPbj53CPL" // Replace with your reCAPTCHA site key
+                        onChange={(value) => setCaptchaValue(value)}
+                      />
+                      {captchaValue && (
+                        <button type="submit" className={`btn ms-auto mt-3 ${success ? "success" : ""}`} disabled={success  ? true : false}>
+                          {!success ? "Submit" : "Message Sent"}
+                        </button>
+                      )}
+                    </div>
+                  )}
+
                 </div>
               </form>
             </div>

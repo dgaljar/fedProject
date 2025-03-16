@@ -13,37 +13,37 @@ const AdminPost = () => {
   const [totalPosts, setTotalPosts] = useState(null);
   const [selectedPosts, setSelectedPosts] = useState([]);
   const [count, setCount] = useState(1);
-  useEffect(() => {
-    const fetchPosts = async () => {
-      let url =
-        auth.role === "administrator"
-          ? `https://frontend.internetskimarketing.eu/backend/wp-json/wp/v2/posts?per_page=10&page=${count}&_embed`
-          : `https://frontend.internetskimarketing.eu/backend/wp-json/wp/v2/posts?per_page=10&page=${count}&_embed&author=${auth.id}`;
 
-      try {
-        const response = await fetch(url);
-        if (!response.ok) throw new Error("Failed to fetch posts");
+ useEffect(() => {
+  const fetchPosts = async () => {
+    let url =
+      auth.role === "administrator"
+        ? `https://frontend.internetskimarketing.eu/backend/wp-json/wp/v2/posts?per_page=10&page=${count}&_embed`
+        : `https://frontend.internetskimarketing.eu/backend/wp-json/wp/v2/posts?per_page=10&page=${count}&_embed&author=${auth.id}`;
 
-        const totalUsersHeader = response.headers.get("X-WP-Total");
-        setTotalPosts(totalUsersHeader ? Number(totalUsersHeader) : 0);
+    try {
+      setLoading(true);
+      const response = await fetch(url);
+      if (!response.ok) throw new Error("Failed to fetch posts");
 
-        const totalPagesHeader = response.headers.get("X-WP-TotalPages");
-        setTotalPages(totalPagesHeader ? Number(totalPagesHeader) : 1);
+      const totalUsersHeader = response.headers.get("X-WP-Total");
+      setTotalPosts(totalUsersHeader ? Number(totalUsersHeader) : 0);
 
-        const data = await response.json();
-        if (data.length === 0) {
-          setPosts(null); // No posts available
-        } else {
-          setPosts(data);
-        }
-      } catch (error) {
-        console.error("Error fetching posts:", error);
-        setPosts(null);
-      }
-    };
-  
+      const totalPagesHeader = response.headers.get("X-WP-TotalPages");
+      setTotalPages(totalPagesHeader ? Number(totalPagesHeader) : 1);
 
-  }, [count, auth.role, auth.id]);
+      const data = await response.json();
+      setPosts(data.length > 0 ? data : []);
+    } catch (error) {
+      console.error("Error fetching posts:", error);
+      setPosts([]); // Ensure it doesn't remain `null`
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  fetchPosts();
+}, [count, auth.role, auth.id]); 
 
   const truncateText = (text, limit = 100) => {
     if (!text) return "";

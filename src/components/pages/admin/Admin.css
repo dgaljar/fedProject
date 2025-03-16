@@ -242,6 +242,10 @@ td, th {
     padding: 8px 0;
 }
 
+td p {
+    margin: 0;
+}
+
 .checkbox {
     width: 60px;
     position: relative
@@ -332,7 +336,7 @@ input:focus-visible, textarea:focus-visible {
 
 .adminsearchinput {
     border-radius: 15px;
-    padding: 4px 0 4px 10%;
+    padding: 4px 0 4px 40px;
     width: 100%;
 }
 
@@ -375,6 +379,10 @@ tbody {
     background-position: center;
     background-color: hsl(0 0% 100% / 0.1);
     backdrop-filter: blur(1rem);
+}
+
+.construct {
+    max-width: 500px;
 }
 
 @media (max-width: 767px) {

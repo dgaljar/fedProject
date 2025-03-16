@@ -47,11 +47,7 @@ const AdminAddPost = () => {
               <label for="fullname">
                 Content <span className="asterix">*</span>
               </label>
-              <textarea
-                name=""
-                id=""
-                placeholder="Insert your content"
-              ></textarea>
+          
             </div>
 
             <button className="btn">Create User</button>
