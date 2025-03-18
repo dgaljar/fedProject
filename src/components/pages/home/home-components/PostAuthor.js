@@ -14,7 +14,7 @@ const PostAuthor = ({ name, slug }) => {
 
   return (
     <>
-      <Link to={`author/${slug}`}>
+      <Link to={`/author/${slug}`}>
         <span className="heroname">{truncatedAuthor}</span>
       </Link>
     </>

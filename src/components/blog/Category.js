@@ -32,10 +32,6 @@ const Category = () => {
           setSelectedCategory(categoriesWithPosts[0].id);
         setCategoriesLoading(false);
       })
-      .catch((error) => {
-        console.error("Error fetching categories:", error);
-        setCategoriesLoading(false);
-      });
   }, []);
 
   useEffect(() => {

@@ -5,6 +5,7 @@ import PostCategory from "../pages/home/home-components/PostCategory";
 import PostAuthor from "../pages/home/home-components/PostAuthor";
 import PostDate from "../pages/home/home-components/PostDate";
 import Loading from "../pages/home/home-components/Loading";
+import MediaImg from "./MediaImg";
 import "./SinglePost.css";
 
 const SinglePost = () => {
@@ -87,7 +88,7 @@ const SinglePost = () => {
   if (!post) return <Loading />;
 
   const imgSize =
-    post._embedded?.["wp:featuredmedia"]?.[0]?.media_details?.sizes?.medium
+    post._embedded?.["wp:featuredmedia"]?.[0]?.media_details?.sizes?.full
       ?.source_url || post._embedded?.["wp:featuredmedia"]?.[0]?.source_url;
 
   return (

@@ -47,7 +47,7 @@ const AdminAddPost = () => {
               <label for="fullname">
                 Content <span className="asterix">*</span>
               </label>
-          
+              
             </div>
 
             <button className="btn">Create User</button>

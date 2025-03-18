@@ -1,8 +1,8 @@
 import React, { useEffect, useRef, useState, useContext } from "react";
 import AuthContext from "../pages/users/context/AuthProwider";
-import './Header.css';
-import { Link, useLocation } from 'react-router-dom';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import "./Header.css";
+import { Link, useLocation } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const Header = ({ darkMode, toggleDarkMode }) => {
   const toggleContainerRef = useRef(null);
@@ -16,37 +16,41 @@ const Header = ({ darkMode, toggleDarkMode }) => {
 
   const closeSidebar = () => {
     setOpen(false);
-  }
-     
-  useEffect( () => {
-    const user = localStorage.getItem('username');
-    if(user)  setUsername(user);
+  };
+
+  useEffect(() => {
+    const user = localStorage.getItem("username");
+    if (user) setUsername(user);
   }, []);
 
   const location = useLocation();
 
-  if(location.pathname === "/signin" || location.pathname === "/signup" || location.pathname.startsWith("/shop")) {
-    return; 
-  } 
+  if (
+    location.pathname === "/signin" ||
+    location.pathname === "/signup" ||
+    location.pathname.startsWith("/shop")
+  ) {
+    return;
+  }
 
   const logout = () => {
-    localStorage.removeItem('token');
-    localStorage.removeItem('username');
+    localStorage.removeItem("token");
+    localStorage.removeItem("username");
     window.location.reload();
-  }
+  };
 
   return (
     <nav className="navbar navbar-expand-lg">
       <div className="container justify-content-between">
         <Link className="navbar-brand m-0" to="/" aria-label="Home">
           <img
-            className={`navbar-img ${darkMode ? 'd-none' : ''}`}
+            className={`navbar-img ${darkMode ? "d-none" : ""}`}
             src={`${process.env.PUBLIC_URL}/img/favicon.png`}
             alt=""
             width="48px"
           />
           <img
-            className={`navbar-img ${darkMode ? '' : 'd-none'}`}
+            className={`navbar-img ${darkMode ? "" : "d-none"}`}
             src={`${process.env.PUBLIC_URL}/img/Logo.png`}
             alt=""
             width="48px"
@@ -64,63 +68,68 @@ const Header = ({ darkMode, toggleDarkMode }) => {
           <span className="navbar-toggler-icon"></span>
         </button>
 
-        <div className={`wrapper ${open ? 'is-open' : ''}` }id="navbarSupportedContent">
+        <div
+          className={`wrapper ${open ? "is-open" : ""}`}
+          id="navbarSupportedContent"
+        >
           <div className="inner ms-lg-auto">
-          <ul className="navbar-nav align-items-center ms-auto">
-          <li className="nav-item" onClick={closeSidebar}>
-              <Link className="nav-link"  to="/shop">Shop</Link>
-            </li>
-            <li className="nav-item" onClick={closeSidebar}>
-              <Link className="nav-link" to="/">Home</Link>
-            </li>
-            <li className="nav-item"  onClick={closeSidebar}>
-              <Link className="nav-link" to="/category">Categories</Link>
-            </li>
-           
-            <li className="nav-item" onClick={closeSidebar}>
-              <Link className="nav-link" to="/authors">Authors</Link>
-            </li>
-            <li className="nav-item" onClick={closeSidebar}>
-              <Link className="nav-link" to="/contact">Contact</Link>
-            </li>
-            {auth.token ? (
+            <ul className="navbar-nav align-items-center ms-auto">
               <li className="nav-item" onClick={closeSidebar}>
-              <Link className="nav-link" to="/admin">Admin</Link>
-            </li>
-            ) : (
-              <></>
-            )}
-            
-            {/* <li className="nav-item">
-              <div className="searchbar mb-2 mb-md-0 d-none d-lg-block">
-                <input type="text" placeholder="Search" /><i className="fa-solid fa-magnifying-glass"></i>
-              </div>
-            </li> */}
-             <li className="nav-item" onClick={closeSidebar}>
-              {username ? (
-                <button className="nav-link btn btn-nav" onClick={logout}>Logout</button>
+                <Link className="nav-link" to="/">
+                  Home
+                </Link>
+              </li>
+              <li className="nav-item" onClick={closeSidebar}>
+                <Link className="nav-link" to="/category">
+                  Categories
+                </Link>
+              </li>
+
+              <li className="nav-item" onClick={closeSidebar}>
+                <Link className="nav-link" to="/authors">
+                  Authors
+                </Link>
+              </li>
+              <li className="nav-item" onClick={closeSidebar}>
+                <Link className="nav-link" to="/contact">
+                  Contact
+                </Link>
+              </li>
+              {auth.token ? (
+                <li className="nav-item" onClick={closeSidebar}>
+                  <Link className="nav-link" to="/admin">
+                    Admin
+                  </Link>
+                </li>
               ) : (
-                <Link className="nav-link btn btn-nav" to="/signin">Sign in</Link>
-              ) 
-              
-              }
-
-            </li>
-            <li className="nav-item">
-              <div
-                className={`toggle-container ${darkMode ? 'darklite' : ''}`}
-                ref={toggleContainerRef}
-                onClick={toggleDarkMode}
-              >
-                {/* <FontAwesomeIcon className="lightbulb" icon={faLightbulb} /> */}
-                <FontAwesomeIcon className="lightbulb" icon="fa-regular fa-lightbulb" />
-                {/* <i className="fa-regular fa-lightbulb lightbulb"></i> */}
-                <FontAwesomeIcon className="moon" icon="fa-regular fa-moon" />
-                <div className="toggle-circle"></div>
-              </div>
-            </li>
-          </ul>
-
+                <></>
+              )}
+              <li className="nav-item" onClick={closeSidebar}>
+                {username ? (
+                  <button className="nav-link btn btn-nav" onClick={logout}>
+                    Logout
+                  </button>
+                ) : (
+                  <Link className="nav-link btn btn-nav" to="/signin">
+                    Sign in
+                  </Link>
+                )}
+              </li>
+              <li className="nav-item">
+                <div
+                  className={`toggle-container ${darkMode ? "darklite" : ""}`}
+                  ref={toggleContainerRef}
+                  onClick={toggleDarkMode}
+                >
+                  <FontAwesomeIcon
+                    className="lightbulb"
+                    icon="fa-regular fa-lightbulb"
+                  />
+                  <FontAwesomeIcon className="moon" icon="fa-regular fa-moon" />
+                  <div className="toggle-circle"></div>
+                </div>
+              </li>
+            </ul>
           </div>
         </div>
       </div>

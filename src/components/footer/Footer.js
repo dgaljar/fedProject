@@ -3,6 +3,7 @@ import "./Footer.css";
 import { useLocation } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEnvelope} from '@fortawesome/free-solid-svg-icons';
+import { Link } from "react-router-dom";
 
 const Footer = ({ darkMode }) => {
   const location = useLocation();
@@ -36,22 +37,19 @@ const Footer = ({ darkMode }) => {
               <h3>Quick Link</h3>
               <ul>
                 <li>
-                  <a href="/">Home</a>
+                  <Link to="/">Home</Link>
                 </li>
                 <li>
-                  <a href="/">About</a>
+                  <Link to="/aboutus">About</Link>
                 </li>
                 <li>
-                  <a href="/">Blog</a>
+                  <Link to="/">Arhived</Link>
                 </li>
                 <li>
-                  <a href="/">Arhived</a>
+                  <Link to="/authors">Author</Link>
                 </li>
                 <li>
-                  <a href="/">Author</a>
-                </li>
-                <li>
-                  <a href="/">Contact</a>
+                  <Link to="/contact">Contact</Link>
                 </li>
               </ul>
             </div>
@@ -61,23 +59,22 @@ const Footer = ({ darkMode }) => {
               <h3>Category</h3>
               <ul>
                 <li>
-                  <a href="/">Lifestyle</a>
+                  <Link to="/category/novosti">News</Link>
                 </li>
                 <li>
-                  <a href="/">Technology</a>
+                  <Link to="/category/hrvatska">Croatia</Link>
                 </li>
                 <li>
-                  <a href="/">Travel</a>
+                  <Link to="/category/zdravlje">Health</Link>
                 </li>
                 <li>
-                  <a href="/">Business</a>
+                  <Link to="/category/dom-i-vrt">Garden</Link>
                 </li>
                 <li>
-                  <a href="/">Economy</a>
+                  <Link to="/category/shop">Shop</Link>
                 </li>
-                <li>
-                  <a href="/">Sports</a>
-                </li>
+  
+  
               </ul>
             </div>
           </div>

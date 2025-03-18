@@ -33,6 +33,7 @@ const PostCardDos = ({ post }) => {
               "placeholder image"
             }
           />
+          {/* <MediaImg id={post.featured_media} size={"medium"} /> */}
           <div className="post-details">
             <Link
               className="btn"
