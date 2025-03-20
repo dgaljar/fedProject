@@ -83,7 +83,7 @@ const AdminLayout = () => {
                     }`}
                   >
                     <li>
-                      <Link to="/admin/cs">Profile</Link>
+                      <Link to={"/admin/users/" + auth.id}>Profile</Link>
                     </li>
                     <li>
                       <a href="#" onClick={logout}>Log Out</a>

@@ -193,48 +193,58 @@ const AdminUser = () => {
                   </tr>
                 </thead>
 
-                <tbody className={loading ? "loading" : ""}>
-                  {users.map((user) => (
-                    <tr key={user.id}>
-                      <td className="text-start">
-                        <input
-                          type="checkbox"
-                          checked={selectedUsers.includes(user.id)}
-                          onChange={() => handleSelectUser(user.id)}
-                        />
-                      </td>
-                      <td className="primary fw-bold">{user.id}</td>
-                      <td className="text-center">
-                        <img src={user.avatar_urls["24"]} alt="" />
-                      </td>
-                      <td>{user.name}</td>
-                      <td>{user.acf.api_user_email}</td>
-                      <td className="text-center">
-                        {user.acf.api_user_roles?.includes("administrator") ? (
-                          <i className="fa-regular fa-circle-check green"></i>
-                        ) : (
-                          <i className="fa-regular fa-circle-xmark red"></i>
+                <tbody>
+                  {!loading ? (
+                    users.map((user) => (
+                      <tr key={user.id}>
+                        <td className="text-start">
+                          <input
+                            type="checkbox"
+                            checked={selectedUsers.includes(user.id)}
+                            onChange={() => handleSelectUser(user.id)}
+                          />
+                        </td>
+                        <td className="primary fw-bold">{user.id}</td>
+                        <td className="text-center">
+                          <img src={user.avatar_urls["24"]} alt="" />
+                        </td>
+                        <td>{user.name}</td>
+                        <td>{user.acf.api_user_email}</td>
+                        <td className="text-center">
+                          {user.acf.api_user_roles?.includes(
+                            "administrator"
+                          ) ? (
+                            <i className="fa-regular fa-circle-check green"></i>
+                          ) : (
+                            <i className="fa-regular fa-circle-xmark red"></i>
+                          )}
+                        </td>
+                        {auth.role === "administrator" && (
+                          <>
+                            <td className="px-3 px-md-0">
+                              <Link to={`/admin/users/${user.id}`}>
+                                <i className="fa-regular fa-pen-to-square"></i>
+                              </Link>
+                            </td>
+                            <td className="px-3 px-md-0">
+                              <button
+                                className="functionButtons"
+                                onClick={() => deleteUser(user.id)}
+                              >
+                                <i className="fa-regular fa-trash-can"></i>
+                              </button>
+                            </td>
+                          </>
                         )}
+                      </tr>
+                    ))
+                  ) : (
+                    <tr>
+                      <td colSpan={10} className="text-center">
+                        Loading...
                       </td>
-                      {auth.role === "administrator" && (
-                        <>
-                          <td className="px-3 px-md-0">
-                            <Link to={`/admin/users/${user.id}`}>
-                              <i className="fa-regular fa-pen-to-square"></i>
-                            </Link>
-                          </td>
-                          <td className="px-3 px-md-0">
-                            <button
-                              className="functionButtons"
-                              onClick={() => deleteUser(user.id)}
-                            >
-                              <i className="fa-regular fa-trash-can"></i>
-                            </button>
-                          </td>
-                        </>
-                      )}
                     </tr>
-                  ))}
+                  )}
                 </tbody>
               </table>
             </div>

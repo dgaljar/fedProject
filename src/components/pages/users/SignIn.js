@@ -115,19 +115,19 @@ const SignIn = () => {
               <input
                 type="password"
                 placeholder="Enter your password"
-                className="mb-4"
+                className="mb-2"
                 name="password"
                 onChange={handleChange}
                 value={form.password}
                 required
               />
-              <Link to="/" className="forgotpassword">
+              <Link to="/forgotpassword">
                 Forgot Password?
               </Link>
 
               {error ? <p className="alert alert-danger">{error}</p> : ""}
 
-              <button type="submit">Sign In</button>
+              <button type="submit" className="mt-4">Sign In</button>
               <p className="seperator">or do it via other accounts</p>
             </form>
 

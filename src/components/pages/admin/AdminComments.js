@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useContext } from "react";
 import { searchComments } from "../../services/api";
+import { Link } from "react-router-dom";
 import Pagination from "../../services/Pagination";
 import AuthContext from "../users/context/AuthProwider";
 
@@ -102,6 +103,8 @@ const AdminComments = () => {
     //kada kliknemo na broj updatea se count i fetcha se nova stranica
     setCount(pageNumber);
   };
+
+
   return (
     <>
       <div className="container-fluid content mt-4">
@@ -178,7 +181,7 @@ const AdminComments = () => {
                         <i className="fa-solid fa-sort"></i>
                       </a>
                     </th>
-                    <th>
+                    <th className="text-center">
                       Related Post{" "}
                       <a href="">
                         <i className="fa-solid fa-sort"></i>
@@ -195,49 +198,58 @@ const AdminComments = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {!loading ? (
-                    comments.map((comment) => (
+                {!loading ? (
+                  comments.map((comment) => {
+                    const formattedDate = new Date(comment.date).toLocaleString("en-GB", {
+                      day: "2-digit",
+                      month: "2-digit",
+                      year: "numeric",
+                      hour: "2-digit",
+                      minute: "2-digit",
+                      hour12: false
+                    }).replace(",", "");
+
+                    return (
                       <tr key={comment.id}>
-                        <td className="text-start">
-                        <input
-                          type="checkbox"
-                          checked={selectedComments.includes(comment.id)}
-                          onChange={() => handleSelectComment(comment.id)}
-                        />
+                        <td>
+                          <input
+                            type="checkbox"
+                            checked={selectedComments.includes(comment.id)}
+                            onChange={() => handleSelectComment(comment.id)}
+                          />
                         </td>
                         <td>{comment.id}</td>
-                        <td
-                          dangerouslySetInnerHTML={{
-                            __html: comment.content.rendered,
-                          }}
-                        />
+                        <td dangerouslySetInnerHTML={{ __html: comment.content.rendered }} />
                         <td>{comment.author_name}</td>
-                        <td>{comment.date}</td>
-                        <td className="text-center">{comment.post}</td>
+                        <td>{formattedDate}</td>
+                        <td className="text-center">
+                          <Link to={`/blog/${comment.post_slug}`}>{comment.post}</Link>
+                        </td>
                         <td>Published</td>
                         <td className="text-center">
-                          <a href="edit-post.html">
-                            {comment.status === "approved" ? (
-                              <i className="fa-solid fa-check"></i>
-                            ) : (
-                              <i class="fa-solid fa-xmark"></i>
-                            )}
-                          </a>
+                          {comment.status === "approved" ? (
+                            <i className="fa-solid fa-check"></i>
+                          ) : (
+                            <i className="fa-solid fa-xmark"></i>
+                          )}
                         </td>
                         <td className="text-center">
-                          <a href="#">
-                            <i className="fa-solid fa-trash-can red"></i>
-                          </a>
+                          <i
+                            className="fa-solid fa-trash-can red"
+                            onClick={() => deleteComment(comment.id)}
+                            style={{ cursor: "pointer" }}
+                          ></i>
                         </td>
                       </tr>
-                    ))
-                  ) : (
-                    <tr>
-                      <td colSpan={10} className="text-center">
-                        Loading...
-                      </td>
-                    </tr>
-                  )}
+                    );
+                  })
+                ) : (
+                  <tr>
+                    <td colSpan={10} className="text-center">
+                      Loading...
+                    </td>
+                  </tr>
+                )}
                 </tbody>
               </table>
             </div>

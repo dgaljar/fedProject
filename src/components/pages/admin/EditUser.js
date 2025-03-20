@@ -36,7 +36,7 @@ const EditUser = () => {
             setLastName(data.last_name || "");
             setUsername(data.username || "");
             setEmail(data.email || "");
-            setRoles(data.roles?.[0] || "subscriber"); // Assuming roles array
+            setRoles(data.acf?.api_user_roles || "subscriber"); 
           } else {
             setMessage(<div className="alert alert-danger">Error: {data.message}</div>);
           }
@@ -48,23 +48,24 @@ const EditUser = () => {
   
       fetchUser();
     }, [id, auth.token]);
-  
+    
     const handleSubmit = async (e) => {
       e.preventDefault();
-  
+    
       const updatedUser = {
         first_name,
         last_name,
         username,
-        email,
-        roles: [roles], // WordPress expects an array for roles
+        acf: {
+          api_user_roles: roles,
+        },
       };
-  
+    
       try {
         const response = await fetch(
           `https://frontend.internetskimarketing.eu/backend/wp-json/wp/v2/users/${id}`,
           {
-            method: "POST",
+            method: "PUT", // Use PUT for updating
             headers: {
               "Content-Type": "application/json",
               "Authorization": `Bearer ${auth.token}`,
@@ -72,9 +73,11 @@ const EditUser = () => {
             body: JSON.stringify(updatedUser),
           }
         );
-  
+    
         const data = await response.json();
-  
+    
+        console.log("API Response Data:", data); // Log the response data for debugging
+    
         if (response.ok) {
           setMessage(
             <div className="alert alert-success mt-3">
@@ -126,6 +129,7 @@ const EditUser = () => {
                     placeholder="example@example.com"
                     value={email || user.acf.api_user_email}
                     onChange={(e) => setEmail(e.target.value)}
+                    disabled
                   />
                 </div>
                 <div className="d-flex align-items-center inputs">

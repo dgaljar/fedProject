@@ -8,7 +8,7 @@ export const AuthProvider = ({ children }) => {
         const storedUser = localStorage.getItem("username");
         const storedEmail = localStorage.getItem("email"); // Get stored email
         const storedRole = localStorage.getItem("role");
-        const storedID = localStorage.getItem("id");
+        const storedID = localStorage.getItem("user_id");
 
         return storedToken
             ? { token: storedToken, user: storedUser, email: storedEmail, role: storedRole, id: storedID }

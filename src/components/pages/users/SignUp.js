@@ -114,6 +114,8 @@ const SignUp = () => {
       setIsLoading(false);
     }
   };
+
+  console.log(process.env.REACT_APP_CAPTCHA)
   return (
     <>
       <div className="container-fluid">
@@ -127,7 +129,6 @@ const SignUp = () => {
               <h1>Welcome to MetaBlog!</h1>
               <p>
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                Vulputate ut laoreet velit ma.
               </p>
             </div>
             <img src="img/bgimg.svg" alt="" />
@@ -302,7 +303,7 @@ const SignUp = () => {
                   ) : (
                     <div className="col-12 text-center">
                       <ReCAPTCHA
-                        sitekey="6LeTYvYqAAAAAEAq75bi_aFR2eQET_dhPbj53CPL" // Replace with your reCAPTCHA site key
+                        sitekey={process.env.REACT_APP_CAPTCHA_BUILD} // Replace with your reCAPTCHA site key
                         onChange={(value) => setCaptchaValue(value)}
                       />
                       {captchaValue && (

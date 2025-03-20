@@ -107,7 +107,7 @@ const CategoryPage = () => {
     <>
       <div className="container">
         <div className="row">
-          <h1>Posts by {categories[0]?.name}</h1>
+          <h1>Posts in category {categories[0]?.name}</h1>
         </div>
       </div>
       <section className="posts my-3">

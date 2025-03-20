@@ -19,6 +19,7 @@ import Kontakt from "./components/pages/wordpressbs/Kontakt";
 import AboutUs from "./components/pages/wordpressbs/AboutUs";
 import SignUp from "./components/pages/users/SignUp";
 import SignIn from "./components/pages/users/SignIn";
+import ForgotPassword from "./components/pages/users/ForgotPassword";
 import Exchange from "./components/test/Exchhange";
 import Countries from "./components/countries/Countries";
 import SingleCountry from "./components/countries/SingleCountry";
@@ -78,6 +79,7 @@ function App() {
         <Route path="/aboutus" element={<AboutUs />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/signin" element={<SignIn />} />
+        <Route path="/forgotpassword" element={<ForgotPassword />} />
         <Route path="/exchange" element={<Exchange />} />
         <Route path="/countries" element={<Countries />} />
         <Route path="/countries/:name" element={<SingleCountry />} />

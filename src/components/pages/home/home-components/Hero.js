@@ -33,7 +33,7 @@ const Hero = () => {
     )
       .then((response) => response.json())
       .then((data) => {
-        setPost(data[4]); // Set the first post
+        setPost(data[0]); // Set the first post
         setLoading(false); // Finished loading
       })
       .catch(() => {

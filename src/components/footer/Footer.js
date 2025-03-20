@@ -8,7 +8,10 @@ import { Link } from "react-router-dom";
 const Footer = ({ darkMode }) => {
   const location = useLocation();
 
-  if (location.pathname === "/signin" || location.pathname === "/signup"  || location.pathname.startsWith("/shop")) {
+  if (location.pathname === "/signin" || 
+    location.pathname === "/signup"  || 
+    location.pathname === "/forgotpassword" ||
+    location.pathname.startsWith("/shop")) {
     return;
   }
 
@@ -51,6 +54,9 @@ const Footer = ({ darkMode }) => {
                 <li>
                   <Link to="/contact">Contact</Link>
                 </li>
+                <li>
+                  <Link to="/shop">Shop</Link>
+                </li>
               </ul>
             </div>
           </div>
@@ -70,11 +76,6 @@ const Footer = ({ darkMode }) => {
                 <li>
                   <Link to="/category/dom-i-vrt">Garden</Link>
                 </li>
-                <li>
-                  <Link to="/category/shop">Shop</Link>
-                </li>
-  
-  
               </ul>
             </div>
           </div>

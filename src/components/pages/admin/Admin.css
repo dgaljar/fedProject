@@ -385,6 +385,10 @@ tbody {
     max-width: 500px;
 }
 
+.editor {
+    width: 75%!important;
+}
+
 @media (max-width: 767px) {
     .sidebar {
         padding: 0  12px;

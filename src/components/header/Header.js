@@ -28,6 +28,7 @@ const Header = ({ darkMode, toggleDarkMode }) => {
   if (
     location.pathname === "/signin" ||
     location.pathname === "/signup" ||
+    location.pathname === "/forgotpassword" ||
     location.pathname.startsWith("/shop")
   ) {
     return;
@@ -58,14 +59,16 @@ const Header = ({ darkMode, toggleDarkMode }) => {
         </Link>
 
         <button
-          className="navbar-toggler"
+          className={`navbar-toggler ${open ? "active" : ""}`}
           type="button"
           onClick={toggleSidebar}
           aria-controls="navbarSupportedContent"
           aria-expanded="false"
           aria-label="Toggle navigation"
         >
-          <span className="navbar-toggler-icon"></span>
+          <span className="navbar-line"></span>
+          <span className="navbar-line"></span>
+          <span className="navbar-line"></span>
         </button>
 
         <div

@@ -2,6 +2,7 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import ShopFooter from "./ShopFooter";
+import { QRCode } from "./QRCode";
 
 const ShopCheckout = () => {
   const [cart, setCart] = useState([]);
@@ -11,13 +12,6 @@ const ShopCheckout = () => {
     setCart(localCart);
   }, []);
 
-  // const totalPrice = () => {
-  //   let total = 0;
-  //   cart.forEach((item) => {
-  //     total = total + item.price * item.quanitity;
-  //   });
-  //   return total;
-  // }
   const totalPrice = () => {
     return cart.reduce((total, item) => total + item.price * item.quantity, 0);
   };
@@ -426,7 +420,7 @@ const ShopCheckout = () => {
 
                   <div className="col-md-6">
                     <label htmlFor="cc-number" className="form-label">
-                      Credit card number
+                      CC Number
                     </label>
                     <input
                       type="text"
@@ -488,6 +482,10 @@ const ShopCheckout = () => {
           </div>
         </div>
       </section>
+        <div className="text-center p-5">
+        <QRCode form={form} value={totalPrice().toFixed(2)} />
+
+        </div>
 
       <ShopFooter />
     </>

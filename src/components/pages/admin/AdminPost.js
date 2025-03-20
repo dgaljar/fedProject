@@ -14,36 +14,36 @@ const AdminPost = () => {
   const [selectedPosts, setSelectedPosts] = useState([]);
   const [count, setCount] = useState(1);
 
- useEffect(() => {
-  const fetchPosts = async () => {
-    let url =
-      auth.role === "administrator"
-        ? `https://frontend.internetskimarketing.eu/backend/wp-json/wp/v2/posts?per_page=10&page=${count}&_embed`
-        : `https://frontend.internetskimarketing.eu/backend/wp-json/wp/v2/posts?per_page=10&page=${count}&_embed&author=${auth.id}`;
+  useEffect(() => {
+    const fetchPosts = async () => {
+      let url =
+        auth.role === "administrator"
+          ? `https://frontend.internetskimarketing.eu/backend/wp-json/wp/v2/posts?per_page=10&page=${count}&_embed`
+          : `https://frontend.internetskimarketing.eu/backend/wp-json/wp/v2/posts?per_page=10&page=${count}&_embed&author=${auth.id}`;
 
-    try {
-      setLoading(true);
-      const response = await fetch(url);
-      if (!response.ok) throw new Error("Failed to fetch posts");
+      try {
+        setLoading(true);
+        const response = await fetch(url);
+        if (!response.ok) throw new Error("Failed to fetch posts");
 
-      const totalUsersHeader = response.headers.get("X-WP-Total");
-      setTotalPosts(totalUsersHeader ? Number(totalUsersHeader) : 0);
+        const totalUsersHeader = response.headers.get("X-WP-Total");
+        setTotalPosts(totalUsersHeader ? Number(totalUsersHeader) : 0);
 
-      const totalPagesHeader = response.headers.get("X-WP-TotalPages");
-      setTotalPages(totalPagesHeader ? Number(totalPagesHeader) : 1);
+        const totalPagesHeader = response.headers.get("X-WP-TotalPages");
+        setTotalPages(totalPagesHeader ? Number(totalPagesHeader) : 1);
 
-      const data = await response.json();
-      setPosts(data.length > 0 ? data : []);
-    } catch (error) {
-      console.error("Error fetching posts:", error);
-      setPosts([]); // Ensure it doesn't remain `null`
-    } finally {
-      setLoading(false);
-    }
-  };
+        const data = await response.json();
+        setPosts(data.length > 0 ? data : []);
+      } catch (error) {
+        console.error("Error fetching posts:", error);
+        setPosts([]); // Ensure it doesn't remain `null`
+      } finally {
+        setLoading(false);
+      }
+    };
 
-  fetchPosts();
-}, [count, auth.role, auth.id]); 
+    fetchPosts();
+  }, [count, auth.role, auth.id]);
 
   const truncateText = (text, limit = 100) => {
     if (!text) return "";
@@ -221,63 +221,78 @@ const AdminPost = () => {
                     <th className="text-center">Edit</th>
                   </tr>
                 </thead>
-                <tbody className={loading ? "loading" : ""}>
-                  {posts ? (
-                    posts.map((post) => {
-                      const truncatedTitle = truncateText(
-                        post?.title?.rendered,
-                        25
-                      );
-                      const truncatedName = truncateText(
-                        post._embedded.author[0].name,
-                        25
-                      );
-                      const formattedDate = new Date(
-                        post.date
-                      ).toLocaleDateString("en-GB");
-                      return (
-                        <tr key={post.id}>
-                          <td className="text-start">
-                            <input
-                              type="checkbox"
-                              checked={selectedPosts.includes(post.id)}
-                              onChange={() => handleSelectPost(post.id)}
-                            />
-                          </td>
-                          <td>{post.id}</td>
-                          <td
-                            dangerouslySetInnerHTML={{ __html: truncatedTitle }}
-                          ></td>
-                          <td>{truncatedName}</td>
-                          <td>{post._embedded["wp:term"][0][0].name}</td>
-                          <td>{formattedDate}</td>
-                          <td>250</td>
-                          <td>1205</td>
-                          <td>Published</td>
-                          {auth.role === "administrator" ? (
-                            <td className="text-center">
-                              <button
-                                className="functionButtons"
-                                onClick={() => deletePost(post.id)}
-                              >
-                                <i className="fa-solid fa-trash-can red"></i>
-                              </button>
+                <tbody>
+                  {!loading ? (
+                    posts ? (
+                      posts.map((post) => {
+                        const truncatedTitle = truncateText(
+                          post?.title?.rendered,
+                          25
+                        );
+                        const truncatedName = truncateText(
+                          post._embedded.author[0].name,
+                          25
+                        );
+                        const formattedDate = new Date(post.date).toLocaleString("en-GB", {
+                          day: "2-digit",
+                          month: "2-digit",
+                          year: "numeric",
+                          hour: "2-digit",
+                          minute: "2-digit",
+                          hour12: false
+                        }).replace(",", "");
+                        return (
+                          <tr key={post.id}>
+                            <td className="text-start">
+                              <input
+                                type="checkbox"
+                                checked={selectedPosts.includes(post.id)}
+                                onChange={() => handleSelectPost(post.id)}
+                              />
                             </td>
-                          ) : (
-                            <></>
-                          )}
-                          <td className="text-center">
-                            <a href="edit-post.html">
-                              <i className="fa-solid fa-pen-to-square "></i>
-                            </a>
-                          </td>
-                        </tr>
-                      );
-                    })
+                            <td>{post.id}</td>
+                            <td
+                              dangerouslySetInnerHTML={{
+                                __html: truncatedTitle,
+                              }}
+                            ></td>
+                            <td>{truncatedName}</td>
+                            <td>{post._embedded["wp:term"][0][0].name}</td>
+                            <td>{formattedDate}</td>
+                            <td>250</td>
+                            <td>1205</td>
+                            <td>Published</td>
+                            {auth.role === "administrator" ? (
+                              <td className="text-center">
+                                <button
+                                  className="functionButtons"
+                                  onClick={() => deletePost(post.id)}
+                                >
+                                  <i className="fa-solid fa-trash-can red"></i>
+                                </button>
+                              </td>
+                            ) : (
+                              <></>
+                            )}
+                            <td className="text-center">
+                              <a href="edit-post.html">
+                                <i className="fa-solid fa-pen-to-square "></i>
+                              </a>
+                            </td>
+                          </tr>
+                        );
+                      })
+                    ) : (
+                      <tr>
+                        <td colSpan={11} className="text-center">
+                          No posts
+                        </td>
+                      </tr>
+                    )
                   ) : (
                     <tr>
-                      <td colSpan={11} className="text-center">
-                        No posts
+                      <td colSpan={10} className="text-center">
+                        Loading...
                       </td>
                     </tr>
                   )}
