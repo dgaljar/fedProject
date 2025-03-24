@@ -1,0 +1,90 @@
+
+/* Hero */
+
+.hero {
+    margin-bottom: 144px;
+}
+
+img{
+    max-width: 100%;
+    border-radius: 12px;
+}
+
+.hero>.container>img {
+    width: 100%;
+    height: 55vh;
+    object-fit: cover;
+}
+
+.hero .btn{
+    margin-bottom: 16px;
+    object-fit: fill;
+}
+
+.hero h1 {
+    font-size:  2.25rem;
+    font-weight: 600;
+    line-height: 40px;
+    margin-bottom: 21px;
+}
+
+.hero .container{
+    position: relative;
+}
+
+.hero-card {
+    position: absolute;
+    /* max-width: 598px; */
+    background-color: var(--white);
+    padding: 40px 40px;
+    border-radius: 12px;
+    border: 1px solid #E8E8EA;
+    box-shadow: 2px 0px 12px -6px  #181A2A;
+    max-width: 50%; /* Adjust width relative to container */
+    left: 5%; /* Center the card horizontally */
+    bottom: -10%; 
+}
+
+.hero span {
+    color: var(--nametext);
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+.heroname{
+    margin-left: 12px;
+    margin-right: 20px;
+    text-wrap: wrap;
+}
+.profile-img-hero {
+    background-color: #dddddd;
+    border-radius: 50%;
+    width: 51px;
+    height: 51px;
+}
+
+@media (max-width: 768px) {
+    .hero-card {
+        position: relative;
+        max-width: 100%; /* Full width on smaller screens */
+        margin-top: 10px;
+        left: 0; /* Remove left alignment */
+        bottom: 0; /* Adjust positioning */
+        padding: 20px; /* Smaller padding */
+    }
+
+    .hero>.container>img {
+        width: 100%;
+        height: 45vh;
+        object-fit: cover;
+    }
+
+    .searchbar {
+        margin: 0;
+    }
+
+    footer .row.bottom ul li a{
+        padding: 0 6px;
+    }
+
+}
