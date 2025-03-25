@@ -59,8 +59,11 @@ const Author = () => {
   }, [selectedAuthor, count]); // Re-run when `selectedAuthor` changes
 
   const handlePageClick = (pageNumber) => {
-    if (pageNumber < 1 || pageNumber > totalPages) return;
     setCount(pageNumber);
+    const postsSection = document.getElementById("posts");
+    if (postsSection) {
+      postsSection.scrollIntoView({ behavior: "smooth" });
+    }
   };
 
   // When changing author, reset the page count and fetch new posts
@@ -72,7 +75,7 @@ const Author = () => {
   console.log(selectedAuthor)
 
   return (
-    <section className="posts fullH">
+    <section id="posts" className="posts fullH">
       <div className="container mb-3">
         {/* Author Selection Dropdown */}
         <div className="row mb-4">
@@ -94,7 +97,7 @@ const Author = () => {
                     key={author.id}
                     value={author.id}
                   >
-                    {author.name}
+                    {author.name.substring(0, 35)}
                   </option>
                 ))}
               </select>

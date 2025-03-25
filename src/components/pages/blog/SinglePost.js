@@ -5,6 +5,7 @@ import PostCategory from "../home/home-components/PostCategory";
 import PostAuthor from "../home/home-components/PostAuthor";
 import PostDate from "../home/home-components/PostDate";
 import Loading from "../home/home-components/Loading";
+import Ads from "../home/home-components/Ads";
 
 import "./SinglePost.css";
 
@@ -27,7 +28,9 @@ const SinglePost = () => {
 
   useEffect(() => {
     if (post) {
-      fetch(`https://frontend.internetskimarketing.eu/backend/wp-json/wp/v2/comments?post=${post.id}`)
+      fetch(
+        `https://frontend.internetskimarketing.eu/backend/wp-json/wp/v2/comments?post=${post.id}`
+      )
         .then((response) => response.json())
         .then((data) => setComments(data));
     }
@@ -64,7 +67,7 @@ const SinglePost = () => {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
-            "Authorization": `Bearer ${auth.token}`, // Include token for authentication
+            Authorization: `Bearer ${auth.token}`, // Include token for authentication
           },
           body: JSON.stringify(commentData),
         }
@@ -106,7 +109,7 @@ const SinglePost = () => {
                 <span>
                   <img
                     className="profile-img"
-                    src="/img/profile-jason.webp"
+                    src={post._embedded.author[0].avatar_urls[48]}
                     alt="author"
                   />
                   <PostAuthor
@@ -135,68 +138,80 @@ const SinglePost = () => {
       <section className="single-content">
         <div className="container">
           <div dangerouslySetInnerHTML={{ __html: post.content.rendered }} />
-          <div className="d-flex justify-content-center mb-5">
-            <Link className="btn" to={`/blog/${slug}`}>
-              Read more
-            </Link>
-          </div>
 
-          <section className="ads">
-            <div className="container d-flex justify-content-center">
-              <div className="addplace text-center">
-                <span>Advertisement</span>
-                <p>You can place ads here</p>
-                <span>750x100</span>
+          <Ads />
+
+          <section className="comments">
+            <div className="row">
+              <div className="col-12 px-5">
+                <h3 className="commentTitleMain mb-4">Comments</h3>
+                {auth.token ? (
+                  <form onSubmit={handleSubmit}>
+                    <textarea
+                      cols={10}
+                      rows={5}
+                      maxLength={250}
+                      placeholder="Write your comment..."
+                      value={newComment}
+                      onChange={(e) => setNewComment(e.target.value)}
+                      disabled={isSubmitting}
+                    ></textarea>
+                    {error && <p className="error">{error}</p>}
+                    <button
+                      type="submit"
+                      className="btn mb-3"
+                      disabled={isSubmitting}
+                    >
+                      {isSubmitting ? "Posting..." : "Post Comment"}
+                    </button>
+                  </form>
+                ) : (
+                  <div className="notice">
+                    <p>You must be logged in to comment.</p>
+                    <Link className="btn" to="/signin">
+                      Sign in
+                    </Link>
+                  </div>
+                )}
+              </div>
+
+              <div className="col-12 px-5">
+                {comments.length > 0 ? (
+                  comments.map((comment) => (
+                    <div
+                      key={comment.id}
+                      className="d-flex gap-4 p-5 align-items-start comm"
+                    >
+                      <img
+                        src={
+                          comment.author_avatar_urls?.["48"] ||
+                          "https://placehold.co/60"
+                        }
+                        alt="avatar"
+                        width="40px"
+                      />
+                      <div className="commentBlock">
+                        <span className="commentDate">
+                          {new Date(comment.date).toLocaleDateString()}
+                        </span>
+                        <span className="commentAuthor">
+                          {comment.author_name}
+                        </span>
+                        <p
+                          className="commentBody"
+                          dangerouslySetInnerHTML={{
+                            __html: comment.content.rendered,
+                          }}
+                        />
+                      </div>
+                    </div>
+                  ))
+                ) : (
+                  <p>No comments yet.</p>
+                )}
               </div>
             </div>
           </section>
-
-          <section className="comments">
-        <div className="row">
-          <div className="col-12 px-5">
-            <h3 className="commentTitleMain mb-4">Comments</h3>
-            {auth.token ? (
-              <form onSubmit={handleSubmit}>
-                <textarea
-                  cols={10}
-                  rows={5}
-                  maxLength={250}
-                  placeholder="Write your comment..."
-                  value={newComment}
-                  onChange={(e) => setNewComment(e.target.value)}
-                  disabled={isSubmitting}
-                ></textarea>
-                {error && <p className="error">{error}</p>}
-                <button type="submit" className="btn mb-3" disabled={isSubmitting}>
-                  {isSubmitting ? "Posting..." : "Post Comment"}
-                </button>
-              </form>
-            ) : (
-              <div className="notice">
-                <p>You must be logged in to comment.</p>
-                <Link className="btn" to="/signin">Sign in</Link>
-              </div>
-            )}
-          </div>
-
-          <div className="col-12 px-5">
-            {comments.length > 0 ? (
-              comments.map((comment) => (
-                <div key={comment.id} className="d-flex gap-4 p-5 align-items-start comm">
-                  <img src={comment.author_avatar_urls?.["48"] || "https://placehold.co/60"} alt="avatar" width="40px" />
-                  <div className="commentBlock">
-                    <span className="commentDate">{new Date(comment.date).toLocaleDateString()}</span>
-                    <span className="commentAuthor">{comment.author_name}</span>
-                    <p className="commentBody" dangerouslySetInnerHTML={{ __html: comment.content.rendered }} />
-                  </div>
-                </div>
-              ))
-            ) : (
-              <p>No comments yet.</p>
-            )}
-          </div>
-        </div>
-      </section>
         </div>
       </section>
     </>

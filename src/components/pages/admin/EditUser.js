@@ -1,8 +1,6 @@
 import React, { useEffect, useState, useContext } from "react";
 import { useParams } from "react-router-dom"; // ✅ Fix this import
 import AuthContext from "../users/context/AuthProwider";
-import { Link } from "react-router-dom";
-
 
 const EditUser = () => {
     const { id } = useParams(); // ✅ Get user ID from URL
@@ -14,6 +12,8 @@ const EditUser = () => {
     const [email, setEmail] = useState("");
     const [roles, setRoles] = useState("subscriber");
     const [message, setMessage] = useState("");
+
+
   
     useEffect(() => {
       const fetchUser = async () => {
@@ -48,6 +48,10 @@ const EditUser = () => {
   
       fetchUser();
     }, [id, auth.token]);
+
+    if(id !== auth.id) {
+      return;
+    }
     
     const handleSubmit = async (e) => {
       e.preventDefault();
@@ -104,7 +108,7 @@ const EditUser = () => {
           <div className="add-user-card">
             {user ? (
               <form onSubmit={handleSubmit} className="d-flex flex-column">
-                <div className="d-flex align-items-center inputs">
+                <div className="d-flex flex-column flex-md-row align-items-center inputs">
                   <label htmlFor="firstName">First name</label>
                   <input
                     type="text"
@@ -113,7 +117,7 @@ const EditUser = () => {
                     onChange={(e) => setFirstName(e.target.value)}
                   />
                 </div>
-                <div className="d-flex align-items-center inputs">
+                <div className="d-flex flex-column flex-md-row align-items-center inputs">
                   <label htmlFor="lastName">Last name</label>
                   <input
                     type="text"
@@ -122,7 +126,7 @@ const EditUser = () => {
                     onChange={(e) => setLastName(e.target.value)}
                   />
                 </div>
-                <div className="d-flex align-items-center inputs">
+                <div className="d-flex flex-column flex-md-row align-items-center inputs">
                   <label htmlFor="email">Email</label>
                   <input
                     type="email"
@@ -132,7 +136,7 @@ const EditUser = () => {
                     disabled
                   />
                 </div>
-                <div className="d-flex align-items-center inputs">
+                <div className="d-flex flex-column flex-md-row align-items-center inputs">
                   <label htmlFor="username">Username</label>
                   <input
                     type="text"
@@ -141,7 +145,7 @@ const EditUser = () => {
                     onChange={(e) => setUsername(e.target.value)}
                   />
                 </div>
-                <div className="d-flex align-items-center inputs">
+                <div className="d-flex flex-column flex-md-row align-items-center inputs">
                   <label htmlFor="roles">Role</label>
                   <select
                     name="roles"
@@ -152,7 +156,7 @@ const EditUser = () => {
                     <option value="subscriber">Subscriber</option>
                   </select>
                 </div>
-                <button className="btn btn-primary mt-4">Update User</button>
+                <button className="btn btn-primary mt-4 mx-auto mx-md-0">Update User</button>
               </form>
             ) : (
               <p>Loading user data...</p>

@@ -148,13 +148,15 @@ const AdminComments = () => {
             </div>
           </div>
           <div className="col-md-6 text-md-end">
-            <button
-              className="btn btn-danger ms-3"
-              onClick={handleBulkDelete}
-              disabled={selectedComments.length === 0}
-            >
-              Delete Selected
-            </button>
+            {auth.role === "administrator" && (
+              <button
+                className="btn btn-danger ms-3"
+                onClick={handleBulkDelete}
+                disabled={selectedComments.length === 0}
+              >
+                Delete Selected
+              </button>
+            )}
           </div>
           <div className="col-12">
             <div className="scroller">
@@ -181,7 +183,7 @@ const AdminComments = () => {
                     <th> </th>
                     <th>
                       ID{" "}
-                      <a href="">
+                      <a href="#">
                         <FontAwesomeIcon icon={faSort} />
                       </a>
                     </th>
@@ -189,24 +191,26 @@ const AdminComments = () => {
                     <th>Author</th>
                     <th>
                       Publish Date{" "}
-                      <a href="">
+                      <a href="#">
                         <FontAwesomeIcon icon={faSort} />
                       </a>
                     </th>
                     <th className="text-center">
                       Related Post{" "}
-                      <a href="">
+                      <a href="#">
                         <FontAwesomeIcon icon={faSort} />
                       </a>
                     </th>
                     <th>
                       Status{" "}
-                      <a href="">
+                      <a href="#">
                         <FontAwesomeIcon icon={faSort} />
                       </a>
                     </th>
                     <th className="text-center">Approved</th>
-                    <th className="text-center">Delete</th>
+                    {auth.role === "administrator" && (
+                      <th className="text-center">Delete</th>
+                    )}
                   </tr>
                 </thead>
                 <tbody>
@@ -253,14 +257,17 @@ const AdminComments = () => {
                               <FontAwesomeIcon icon={faXmark} />
                             )}
                           </td>
-                          <td className="text-center">
-                            <FontAwesomeIcon
-                              icon={faTrashCan}
-                              className="red"
-                              onClick={() => deleteComment(comment.id)}
-                              style={{ cursor: "pointer" }}
-                            />
-                          </td>
+
+                          {auth.role === "administrator" && (
+                            <td className="text-center">
+                              <FontAwesomeIcon
+                                icon={faTrashCan}
+                                className="red"
+                                onClick={() => deleteComment(comment.id)}
+                                style={{ cursor: "pointer" }}
+                              />
+                            </td>
+                          )}
                         </tr>
                       );
                     })

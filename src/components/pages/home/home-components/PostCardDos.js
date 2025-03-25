@@ -15,7 +15,7 @@ const truncateText = (text, limit = 100) => {
 const PostCardDos = ({ post }) => {
   if (!post) return <LoadingPost />;
 
-  const truncatedTitle = truncateText(post?.title?.rendered, 60);
+  const truncatedTitle = truncateText(post?.title?.rendered, 40);
   const imgSize =
    post?.featured_media?.medium ;
 
@@ -40,6 +40,7 @@ const PostCardDos = ({ post }) => {
             </Link>
             <Link to={`/blog/` + post.slug}>
               <h3 dangerouslySetInnerHTML={{ __html: truncatedTitle }} />
+              <p className="excerpt" dangerouslySetInnerHTML={{__html: post.excerpt.rendered.substring(0, 85) + "..."}} />
             </Link>
           </div>
         </div>

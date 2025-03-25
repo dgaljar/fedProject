@@ -10,7 +10,7 @@ const AdminCategories = () => {
     )
       .then((response) => response.json())
       .then((data) => setCategories(data));
-  });
+  }, []);
 
   return (
     <>
@@ -18,7 +18,7 @@ const AdminCategories = () => {
         <h1 className="h2">Categories</h1>
         <div className="row">
           {categoreis.map((cat) => (
-            <div className="col-md-3 mb-3">
+            <div className="col-md-3 mb-3" key={cat.id}>
               <div className="user-card">
                 <h3>{cat.name}</h3>
                 <p className="small">Category ID: {cat.id}</p>

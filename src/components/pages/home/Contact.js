@@ -161,7 +161,7 @@ const Contact = () => {
                   </div>
 
                   {!showRecaptcha ? (
-                    <button type="button" className="btn ms-auto" onClick={() => setShowRecaptcha(true)}>
+                    <button type="button" className="btn mx-auto mx-md-0 ms-md-auto" onClick={() => setShowRecaptcha(true)}>
                       Send Message
                     </button>
                   ) : (
@@ -172,7 +172,7 @@ const Contact = () => {
                       />
                       {captchaValue && (
                         <button type="submit" className={`btn ms-auto mt-3 ${success ? "success" : ""}`} disabled={loading || success}>
-                          {loading ? "Loading..." : success ? "Subscribed" : "Submit"}
+                          {loading ? "Loading..." : success ? "sent" : "Submit"}
                         </button>
                       )}
                     </div>

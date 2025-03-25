@@ -57,7 +57,7 @@
 }
 
 .postSelect {
-    width: fit-content;
+    width: 300px;
     padding: .5rem;
     background-color: var(--lighttext);
     color: var(--white);

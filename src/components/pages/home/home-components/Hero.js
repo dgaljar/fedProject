@@ -27,6 +27,8 @@ const Hero = ({post, loading}) => {
             </Link>
             <Link to={`/blog/${slug}`}>
               <h1 dangerouslySetInnerHTML={{__html: title.rendered}} />
+              <p className="excerpt" dangerouslySetInnerHTML={{__html: post.excerpt.rendered.substring(0, 85) + "..."}} />
+
             </Link>
             <span>
               <img

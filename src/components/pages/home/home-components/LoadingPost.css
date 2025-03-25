@@ -6,13 +6,15 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    transition: all 300ms ease;
 }
+
 
 .posts h3 {
     font-size: 24px;
     font-weight: 600;
     line-height: 26px;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
 }
 
 .posts h3 a {
@@ -52,6 +54,12 @@
     text-decoration-thickness: 1rem;
 }
 
+.dash2{
+    width: 330px;
+    height: 30px;
+    background-color: #dddddd;
+    border-radius: 8px;
+}
 .dashh3 {
     text-decoration: line-through;
     text-decoration-color: #dddddd;

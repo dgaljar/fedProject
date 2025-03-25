@@ -1,12 +1,19 @@
-import React from "react";
+import React, {useState} from "react";
 import "./Footer.css";
 import { useLocation } from "react-router-dom";
 import Subscribe from "./Subscribe";
-
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 
 const Footer = ({ darkMode }) => {
   const location = useLocation();
+  const [open, setOpen] = useState(false);
+
+  const toggleSidebar = () => {
+    setOpen(!open);
+  };
+
 
   if (location.pathname === "/signin" || 
     location.pathname === "/signup"  || 
@@ -17,10 +24,13 @@ const Footer = ({ darkMode }) => {
 
   return (
     <footer>
-      <div className="container">
+      <div className="container position-relative">
         <div className="row">
-          <div className="col-md-4 d-flex justify-content-center text-center d-md-block text-md-start mb-4 md-md-0">
-            <div className="about-info">
+          <button className="showmore d-block d-md-none" onClick={toggleSidebar}>
+            {!open ? "Show more" : "Show less"} <FontAwesomeIcon className={!open ? "" : "rotate"} icon={faChevronDown} />
+          </button>
+          <div className={`hidden ${open ? "is-open" : ""} col-md-4 d-flex justify-content-center text-center d-md-block text-md-start mb-4 md-md-0`}>
+            <div className="inner about-info">
               <h3>About</h3>
               <p>
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
@@ -34,10 +44,10 @@ const Footer = ({ darkMode }) => {
                 <b>Phone</b>: <a href="tel:+880 123 456 789">880 123 456 789</a>
               </div>
             </div>
-          </div>
-          <div className="col-md-2">
-            <div className="quick-links text-center text-md-start">
-              <h3>Quick Link</h3>
+          </div> 
+          <div className={`hidden col-md-2 ${open ? "is-open" : ""}`}>
+            <div className="inner quick-links text-center text-md-start">
+              <h3>Quick Links</h3>
               <ul>
                 <li>
                   <Link to="/">Home</Link>
@@ -64,8 +74,8 @@ const Footer = ({ darkMode }) => {
               </ul>
             </div>
           </div>
-          <div className="col-md-2">
-            <div className="category-links text-center text-md-start">
+          <div className={`hidden col-md-2 ${open ? "is-open" : ""}`}>
+            <div className="inner category-links text-center text-md-start">
               <h3>Category</h3>
               <ul>
                 <li>

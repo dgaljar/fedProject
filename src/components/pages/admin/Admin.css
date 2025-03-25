@@ -37,7 +37,7 @@ nav{
     background-color: var(--white);
 }
 
-.hamburger {
+.adminhamburger {
     display: inline-block;
     width: 25px;
     height: 18px;
@@ -49,11 +49,16 @@ nav{
 .ham_btn {
     position: relative;
     border: none;
-    width: 25px;
+    width: 35px;
+    height: 30px;
     background-color: white;
     cursor: pointer;
     font-size: 10px;
-    
+    overflow: hidden;
+}
+
+.ham_btn.active {
+    border: none!important;
 }
 
 .ham_btn .line{
@@ -144,12 +149,17 @@ nav{
     width: 216px;
     padding: 8px 12px;
 }
+.sidebar-nav li a{
+    transition: all 0.2s ease-in-out;
+}
 
 .sidebar-nav li a:hover {
-    color: var(--primary);
     font-weight: 700;
 }
 
+.active-link-admin {
+    font-weight: 700!important;
+}
 
 .sidebar li a {
     display: block;

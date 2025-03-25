@@ -1,6 +1,5 @@
 import React from "react";
 import { useState, useContext } from "react";
-import { Link } from "react-router-dom";
 import AuthContext from "../users/context/AuthProwider";
 
 const AdminAddUser = () => {
@@ -14,6 +13,10 @@ const AdminAddUser = () => {
   const [loading, setLoading] = useState(false);
 
   const { auth } = useContext(AuthContext);
+
+  if(auth.role !== "administrator") {
+    return;
+  }
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -71,7 +74,7 @@ const AdminAddUser = () => {
         <div class="add-user-card">
           {message}
           <form onSubmit={handleSubmit} class="d-flex flex-column">
-            <div class="d-flex align-items-center inputs">
+            <div class="d-flex flex-column flex-md-row align-items-center inputs">
               <label for="firstName">First name</label>
               <input
                 type="text"
@@ -81,7 +84,7 @@ const AdminAddUser = () => {
                 onChange={(e) => setFirstName(e.target.value)}
               />
             </div>
-            <div class="d-flex align-items-center inputs">
+            <div class="d-flex flex-column flex-md-row align-items-center inputs">
               <label for="lastname">Last name</label>
               <input
                 type="text"
@@ -91,7 +94,7 @@ const AdminAddUser = () => {
                 onChange={(e) => setLastName(e.target.value)}
               />
             </div>
-            <div class="d-flex align-items-center inputs">
+            <div class="d-flex flex-column flex-md-row align-items-center inputs">
               <label for="email">
                 Email <span class="asterix">*</span>
               </label>
@@ -103,7 +106,7 @@ const AdminAddUser = () => {
                 onChange={(e) => setEmail(e.target.value)}
               />
             </div>
-            <div class="d-flex align-items-center inputs">
+            <div class="d-flex flex-column flex-md-row align-items-center inputs">
               <label for="username">
                 Username <span class="asterix">*</span>
               </label>
@@ -115,7 +118,7 @@ const AdminAddUser = () => {
                 onChange={(e) => setUsername(e.target.value)}
               />
             </div>
-            <div class="d-flex align-items-center inputs">
+            <div class="d-flex flex-column flex-md-row align-items-center inputs">
               <label for="password">
                 Password <span class="asterix">*</span>
               </label>
@@ -127,7 +130,7 @@ const AdminAddUser = () => {
                 onChange={(e) => setPassword(e.target.value)}
               />
             </div>
-            <div className="d-flex align-items-center inputs">
+            <div className="d-flex flex-column flex-md-row align-items-center inputs">
               <label htmlFor="roles">
                 Role <span className="asterix">*</span>
               </label>
@@ -146,7 +149,7 @@ const AdminAddUser = () => {
               </select>
             </div>
 
-            <button class="btn btn-primary mt-4" disabled={loading ? true : false}>
+            <button class="btn btn-primary mt-4 mx-auto mx-md-0" disabled={loading ? true : false}>
               {loading ? "Loading..." : "Create User"}
             </button>
           </form>

@@ -16,7 +16,6 @@ import {
   faPen,
 } from "@fortawesome/free-solid-svg-icons";
 
-
 const AdminUser = () => {
   const [users, setUsers] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
@@ -151,16 +150,19 @@ const AdminUser = () => {
               <FontAwesomeIcon icon={faMagnifyingGlass} />
             </div>
           </div>
-          <div className="col-md-6 text-md-end">
-            <button className="btn btn-primary">Create User</button>
-            <button
-              className="btn btn-danger ms-3"
-              onClick={handleBulkDelete}
-              disabled={selectedUsers.length === 0}
-            >
-              Delete Selected
-            </button>
-          </div>
+
+          {auth.role === "administrator" && (
+            <div className="col-md-6 text-md-end">
+              <button className="btn btn-primary">Create User</button>
+              <button
+                className="btn btn-danger ms-3"
+                onClick={handleBulkDelete}
+                disabled={selectedUsers.length === 0}
+              >
+                Delete Selected
+              </button>
+            </div>
+          )}
 
           <div className="col-12">
             <div className="scroller">
@@ -195,12 +197,14 @@ const AdminUser = () => {
                         <FontAwesomeIcon icon={faSort} />
                       </a>
                     </th>
-                    <th>
-                      EMAIL
-                      <a href="#">
-                        <FontAwesomeIcon icon={faSort} />
-                      </a>
-                    </th>
+                    {auth.role === "administrator" && (
+                      <th>
+                        EMAIL
+                        <a href="#">
+                          <FontAwesomeIcon icon={faSort} />
+                        </a>
+                      </th>
+                    )}
                     <th className="text-center">ADMIN</th>
                     <th colSpan="4"></th>
                   </tr>
@@ -222,7 +226,10 @@ const AdminUser = () => {
                           <img src={user.avatar_urls["24"]} alt="" />
                         </td>
                         <td>{user.name}</td>
-                        <td>{user.acf.api_user_email}</td>
+                        {auth.role === "administrator" && (
+                          <td>{user.acf.api_user_email}</td>
+                        )}
+
                         <td className="text-center">
                           {user.acf.api_user_roles?.includes(
                             "administrator"
@@ -244,7 +251,10 @@ const AdminUser = () => {
                                 className="functionButtons"
                                 onClick={() => deleteUser(user.id)}
                               >
-                                <FontAwesomeIcon icon={faTrashCan} className="red" />
+                                <FontAwesomeIcon
+                                  icon={faTrashCan}
+                                  className="red"
+                                />
                               </button>
                             </td>
                           </>

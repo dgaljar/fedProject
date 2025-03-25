@@ -36,7 +36,7 @@ const Subscribe = () => {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
-          <FontAwesomeIcon className="lightbulb" icon={faEnvelope} />
+          <FontAwesomeIcon className={sent ? "sent" : ""} icon={faEnvelope} />
         </div>
         <button
           className={`btn ${sent ? "success" : ""}`}

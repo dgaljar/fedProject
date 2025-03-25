@@ -142,3 +142,12 @@
     resize: none; /* Disables manual resizing */
     
   }
+
+  @media (max-width: 768px) {
+    .checkcontainer {
+      font-size: 1.5rem!important;
+    }
+    .radiobtn {
+      top: 10.5px
+    }
+  }

@@ -140,7 +140,7 @@ const AdminAddPost = () => {
           {message}
           <form onSubmit={handleSubmit} className="d-flex flex-column">
             {/* ✅ Fix: Add "name" attribute to input */}
-            <div className="d-flex align-items-center inputs">
+            <div className="d-flex flex-column flex-md-row align-items-center inputs">
               <label htmlFor="title">
                 Title <span className="asterix">*</span>
               </label>
@@ -154,7 +154,7 @@ const AdminAddPost = () => {
               />
             </div>
 
-            <div className="d-flex align-items-center inputs">
+            <div className="d-flex flex-column flex-md-row align-items-center inputs">
               <label htmlFor="category">
                 Category <span className="asterix">*</span>
               </label>
@@ -186,7 +186,7 @@ const AdminAddPost = () => {
               />
             </div> */}
 
-            <div className="d-flex align-items-center inputs">
+            <div className="d-flex flex-column flex-md-row align-items-center inputs">
               <label htmlFor="date">
                 Date <span className="asterix">*</span>
               </label>
@@ -200,7 +200,7 @@ const AdminAddPost = () => {
               />
             </div>
 
-            <div className="d-flex align-items-center inputs">
+            <div className="d-flex flex-column flex-md-row align-items-center inputs">
               <label htmlFor="featured-image">
                 Featured Image <span className="asterix">*</span>
               </label>
@@ -213,7 +213,7 @@ const AdminAddPost = () => {
             </div>
 
             {/* ✅ Fix: Pass custom content handler to Quill */}
-            <div className="d-flex align-items-start inputs">
+            <div className="d-flex flex-column flex-md-row align-items-center align-items-md-start inputs">
               <label htmlFor="content">
                 Content <span className="asterix">*</span>
               </label>
@@ -223,7 +223,7 @@ const AdminAddPost = () => {
               />
             </div>
 
-            <button type="submit" className="btn" disabled={loading ? true : false}>
+            <button type="submit" className="btn mx-auto mx-md-0" disabled={loading ? true : false}>
               {loading ? "Loading..." : "Create Post"}
             </button>
           </form>

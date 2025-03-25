@@ -1,18 +1,17 @@
 // src/App.js
 import React, { useState, useEffect } from "react";
-import { library } from '@fortawesome/fontawesome-svg-core';
-import { faLightbulb, faMoon } from '@fortawesome/free-regular-svg-icons';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import 'bootstrap/dist/js/bootstrap.bundle.min.js';
-import { Route, Routes, useLocation } from 'react-router-dom';
-import Header from './components/header/Header';
-import Footer from './components/footer/Footer';
-import Home from './components/pages/home/Home';
-import Authors from './components/pages/home/Authors';
-import Contact from './components/pages/home/Contact';
-import SinglePost from './components/pages/blog/SinglePost';
-import Category from './components/pages/blog/Category';
-import BlogSingle from "./components//pages/blog/BlogSingle";
+import { library } from "@fortawesome/fontawesome-svg-core";
+import { faLightbulb, faMoon } from "@fortawesome/free-regular-svg-icons";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "bootstrap/dist/js/bootstrap.bundle.min.js";
+import { Route, Routes, useLocation } from "react-router-dom";
+import Header from "./components/header/Header";
+import Footer from "./components/footer/Footer";
+import Home from "./components/pages/home/Home";
+import Authors from "./components/pages/home/Authors";
+import Contact from "./components/pages/home/Contact";
+import SinglePost from "./components/pages/blog/SinglePost";
+import Category from "./components/pages/blog/Category";
 import AuthorsPage from "./components/pages/blog/AuthorsPage";
 import Kontakt from "./components/pages/wordpressbs/Kontakt";
 import AboutUs from "./components/pages/wordpressbs/AboutUs";
@@ -22,7 +21,7 @@ import ForgotPassword from "./components/pages/users/ForgotPassword";
 import Exchange from "./components/test/Exchhange";
 import Countries from "./components/test/countries/Countries";
 import SingleCountry from "./components/test/countries/SingleCountry";
-import CategoryPage from './components//pages/blog/CategoryPage';
+import CategoryPage from "./components//pages/blog/CategoryPage";
 import AdminLayout from "./components/pages/admin/AdminLayout";
 import AdminUser from "./components/pages/admin/AdminUser";
 import AdminPost from "./components/pages/admin/AdminPost";
@@ -37,32 +36,34 @@ import CartPage from "./components/pages/home/shop/Cartpage";
 import ShopCheckout from "./components/pages/home/shop/ShopCheckout";
 import NotFound from "./components/pages/home/NotFound";
 import Construction from "./components/pages/admin/Construction";
-
+import ScrollToTop from "./components/services/ScrollToTop";
 
 library.add(faLightbulb, faMoon);
 
 function App() {
   const [darkMode, setDarkMode] = useState(false);
   const location = useLocation();
-  const isAdminRoute = location.pathname.startsWith('/admin');
+  const isAdminRoute = location.pathname.startsWith("/admin");
 
   // Conditionally load App.css
   useEffect(() => {
     if (!isAdminRoute) {
-      import('./App.css');
+      import("./App.css");
     }
   }, [isAdminRoute]);
 
   // Toggle dark mode
   const toggleDarkMode = () => {
-    setDarkMode(prevMode => !prevMode);
-    document.body.classList.toggle('darkmode', !darkMode);
+    setDarkMode((prevMode) => !prevMode);
+    document.body.classList.toggle("darkmode", !darkMode);
   };
 
   return (
-    <div className={darkMode ? 'darkmode' : ''}>
-      {!isAdminRoute && <Header darkMode={darkMode} toggleDarkMode={toggleDarkMode} />}
-      
+    <div className={darkMode ? "darkmode" : ""}>
+      {!isAdminRoute && (
+        <Header darkMode={darkMode} toggleDarkMode={toggleDarkMode} />
+      )}
+      <ScrollToTop />
       <Routes>
         {/* Public Routes */}
         <Route index element={<Home />} />
@@ -71,7 +72,6 @@ function App() {
         <Route path="/blog/:slug" element={<SinglePost />} />
         <Route path="/category" element={<Category />} />
         <Route path="/category/:category" element={<CategoryPage />} />
-        <Route path="/bloge/:slug" element={<BlogSingle />} />
         <Route path="/author/:author" element={<AuthorsPage />} />
         <Route path="/kontakt" element={<Kontakt />} />
         <Route path="/aboutus" element={<AboutUs />} />
@@ -96,10 +96,9 @@ function App() {
           <Route path="users" element={<AdminUser />} />
           <Route path="users/add" element={<AdminAddUser />} />
           <Route path="users/:id" element={<EditUser />} />
-          <Route path="cs" element={<Construction />}/>
+          <Route path="cs" element={<Construction />} />
         </Route>
       </Routes>
-
       {!isAdminRoute && <Footer darkMode={darkMode} />}
     </div>
   );

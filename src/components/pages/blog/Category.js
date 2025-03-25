@@ -59,8 +59,11 @@ const Category = () => {
   }, [selectedCategory, count]);
 
   const handlePageClick = (pageNumber) => {
-    if (pageNumber < 1 || pageNumber > totalPages) return;
     setCount(pageNumber);
+    const postsSection = document.getElementById("posts");
+    if (postsSection) {
+      postsSection.scrollIntoView({ behavior: "smooth" });
+    }
   };
 
   const handleCategoryChange = (e) => {
@@ -70,7 +73,7 @@ const Category = () => {
   };
 
   return (
-    <section className="posts fullH">
+    <section id="posts" className="posts fullH">
       <div className="container mb-3">
         <div className="row mb-4">
           <div className="text-center d-flex flex-column align-items-center">

@@ -40,6 +40,8 @@ const Header = ({ darkMode, toggleDarkMode }) => {
     window.location.reload();
   };
 
+  const isActive = (path) => location.pathname === path ? "active-link" : "";
+
   return (
     <nav className="navbar navbar-expand-lg">
       <div className="container justify-content-between">
@@ -116,23 +118,23 @@ const Header = ({ darkMode, toggleDarkMode }) => {
           <div className="inner ms-lg-auto">
             <ul className="navbar-nav align-items-center ms-auto">
               <li className="nav-item" onClick={closeSidebar}>
-                <Link className="nav-link" to="/">
+                <Link className={`nav-link ${isActive("/")}`} to="/">
                   Home
                 </Link>
               </li>
               <li className="nav-item" onClick={closeSidebar}>
-                <Link className="nav-link" to="/category">
+                <Link className={`nav-link ${isActive("/category")}`} to="/category">
                   Categories
                 </Link>
               </li>
 
               <li className="nav-item" onClick={closeSidebar}>
-                <Link className="nav-link" to="/authors">
+                <Link className={`nav-link ${isActive("/authors")}`} to="/authors">
                   Authors
                 </Link>
               </li>
               <li className="nav-item" onClick={closeSidebar}>
-                <Link className="nav-link" to="/contact">
+                <Link className={`nav-link ${isActive("/contact")}`} to="/contact">
                   Contact
                 </Link>
               </li>

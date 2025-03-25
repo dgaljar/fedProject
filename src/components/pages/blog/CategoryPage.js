@@ -24,10 +24,14 @@ const CategoryPage = () => {
           setPosts(data.posts);
         });
 
-  }, [ count]);
+  }, [category, count]);
 
   const handlePageClick = (pageNumber) => {
     setCount(pageNumber);
+    const postsSection = document.getElementById("posts");
+    if (postsSection) {
+      postsSection.scrollIntoView({ behavior: "smooth" });
+    }
   };
 
 
@@ -40,7 +44,7 @@ const CategoryPage = () => {
           <h1>Posts in category {posts[0].term_name}</h1>
         </div>
       </div>
-      <section className="posts my-3">
+      <section id="posts" className="posts fullH my-3">
         <div className="container">
           <div className="row g-3">
             {posts.map((post) => (

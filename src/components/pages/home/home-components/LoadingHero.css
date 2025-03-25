@@ -19,7 +19,7 @@
     background-color: #aaa;
 }
 
-.hero>.container>img {
+.hero>.container>svg {
     width: 100%;
     height: 45vh;
     object-fit: cover;

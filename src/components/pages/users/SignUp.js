@@ -283,7 +283,7 @@ const SignUp = () => {
                       htmlFor=""
                       className="d-flex align-items-start terms"
                     >
-                      <input type="checkbox" className="checkbox" />
+                      <input type="checkbox" className="checkbox" required />
                       <span>
                         By creating an account means you agree to the{" "}
                         <Link to="/" className="terms-policy">
@@ -303,7 +303,7 @@ const SignUp = () => {
                   ) : (
                     <div className="col-12 text-center">
                       <ReCAPTCHA
-                        sitekey={process.env.REACT_APP_CAPTCHA_LOCAL} // Replace with your reCAPTCHA site key
+                        sitekey={process.env.REACT_APP_CAPTCHA_BUILD} // Replace with your reCAPTCHA site key
                         onChange={(value) => setCaptchaValue(value)}
                       />
                       {captchaValue && (

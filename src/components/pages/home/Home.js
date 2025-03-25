@@ -13,10 +13,9 @@ const Home = () => {
   const [posts, setPosts] = useState([]);
   const [count, setCount] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
-  const [loading, setLoading] = useState(true); 
+  const [loading, setLoading] = useState(true);
   const [heroPost, setHeroPost] = useState(null);
   const [heroLoad, setHeroLoad] = useState(true);
-
 
   useEffect(() => {
     setLoading(true);
@@ -25,12 +24,11 @@ const Home = () => {
       `${REACT_APP_URL}wp-json/custom/v1/post-details?per_page=6&page=${count}&has_featured_media=true`
     )
       .then((response) => {
-        
         return response.json();
       })
       .then((data) => {
         setPosts(data.posts);
-        setTotalPages(data.pagination.total_pages)
+        setTotalPages(data.pagination.total_pages);
         setLoading(false);
       })
       .catch(() => setLoading(false));
@@ -39,15 +37,19 @@ const Home = () => {
   useEffect(() => {
     setHeroLoad(true);
     fetch(`${REACT_APP_URL}wp-json/custom/v1/post-details?id=294449`)
-    .then((response) => response.json())
-    .then((data) => {
-      setHeroPost(data);
-      setHeroLoad(false);
-    });
-  }, [REACT_APP_URL])
+      .then((response) => response.json())
+      .then((data) => {
+        setHeroPost(data);
+        setHeroLoad(false);
+      });
+  }, [REACT_APP_URL]);
 
   const handlePageClick = (pageNumber) => {
     setCount(pageNumber);
+    const postsSection = document.getElementById("posts");
+    if (postsSection) {
+      postsSection.scrollIntoView({ behavior: "smooth" });
+    }
   };
 
   return (
@@ -55,7 +57,7 @@ const Home = () => {
       <Hero post={heroPost} loading={heroLoad} />
       <Ads />
 
-      <section className="posts">
+      <section id="posts" className="posts">
         <div className="container">
           <div className="row g-3">
             <h2 className="text-md-start">Latest Posts</h2>
