@@ -161,7 +161,7 @@ const Header = ({ darkMode, toggleDarkMode }) => {
                   </Link>
                 )}
               </li>
-              <li className="nav-item">
+              {/* <li className="nav-item">
                 <div
                   className={`toggle-container ${darkMode ? "darklite" : ""}`}
                   ref={toggleContainerRef}
@@ -174,7 +174,7 @@ const Header = ({ darkMode, toggleDarkMode }) => {
                   <FontAwesomeIcon className="moon" icon="fa-regular fa-moon" />
                   <div className="toggle-circle"></div>
                 </div>
-              </li>
+              </li> */}
             </ul>
           </div>
         </div>

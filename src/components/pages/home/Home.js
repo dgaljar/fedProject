@@ -57,7 +57,7 @@ const Home = () => {
       <Hero post={heroPost} loading={heroLoad} />
       <Ads />
 
-      <section id="posts" className="posts">
+      <section id="posts" className="posts mb-5">
         <div className="container">
           <div className="row g-3">
             <h2 className="text-md-start">Latest Posts</h2>
@@ -67,10 +67,6 @@ const Home = () => {
                   return <LoadingPost key={index} />;
                 })
               : posts.map((post) => <PostCardDos key={post.id} post={post} />)}
-          </div>
-
-          <div className="viewall text-center">
-            <Link to="/">View All Posts</Link>
           </div>
         </div>
       </section>
