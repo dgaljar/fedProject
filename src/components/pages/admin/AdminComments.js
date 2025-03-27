@@ -23,11 +23,13 @@ const AdminComments = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const { auth } = useContext(AuthContext);
+  const [isAscending, setIsAscending] = useState(true);
+  const [sortCondition, setSortCondition] = useState("id");
 
   useEffect(() => {
     setLoading(true);
     fetch(
-      `https://frontend.internetskimarketing.eu/backend/wp-json/wp/v2/comments?per_page=10&page=${count}`
+      `https://frontend.internetskimarketing.eu/backend/wp-json/wp/v2/comments?per_page=10&page=${count}&orderby=${sortCondition}&order=${isAscending ? "asc" : "desc"}`
     )
       .then((response) => {
         const totalCommentsHeader = response.headers.get("X-WP-Total");
@@ -40,7 +42,7 @@ const AdminComments = () => {
         setComments(data);
         setLoading(false);
       });
-  }, [count]);
+  }, [count, isAscending, sortCondition]);
 
   const deleteComment = async (commentId) => {
     if (!window.confirm(`Delete comment ${commentId}?`)) return;
@@ -104,6 +106,7 @@ const AdminComments = () => {
       setComments(searchResults); // Fix: Use correct response format
     } catch (err) {
       setError("Failed to search comments...");
+      console.log(error)
     } finally {
       setLoading(false);
     }
@@ -112,6 +115,11 @@ const AdminComments = () => {
   const handlePageClick = (pageNumber) => {
     //kada kliknemo na broj updatea se count i fetcha se nova stranica
     setCount(pageNumber);
+  };
+
+  const toggleCondition = (sortKey) => {
+    setSortCondition(sortKey);
+    setIsAscending((prev) => !prev);
   };
 
   return (
@@ -183,29 +191,49 @@ const AdminComments = () => {
                     <th> </th>
                     <th>
                       ID{" "}
-                      <a href="#">
-                        <FontAwesomeIcon icon={faSort} />
-                      </a>
+                      <FontAwesomeIcon
+                        icon={faSort}
+                        style={{ cursor: "pointer" }}
+                        onClick={(e) => {
+                          e.preventDefault();
+                          toggleCondition("id");
+                        }}
+                      />
                     </th>
                     <th>Content</th>
                     <th>Author</th>
                     <th>
                       Publish Date{" "}
-                      <a href="#">
-                        <FontAwesomeIcon icon={faSort} />
-                      </a>
+                      <FontAwesomeIcon
+                        icon={faSort}
+                        style={{ cursor: "pointer" }}
+                        onClick={(e) => {
+                          e.preventDefault();
+                          toggleCondition("date");
+                        }}
+                      />
                     </th>
                     <th className="text-center">
                       Related Post{" "}
-                      <a href="#">
-                        <FontAwesomeIcon icon={faSort} />
-                      </a>
+                      <FontAwesomeIcon
+                        icon={faSort}
+                        style={{ cursor: "pointer" }}
+                        onClick={(e) => {
+                          e.preventDefault();
+                          toggleCondition("post");
+                        }}
+                      />
                     </th>
                     <th>
                       Status{" "}
-                      <a href="#">
-                        <FontAwesomeIcon icon={faSort} />
-                      </a>
+                      <FontAwesomeIcon
+                        icon={faSort}
+                        style={{ cursor: "pointer" }}
+                        onClick={(e) => {
+                          e.preventDefault();
+                          toggleCondition("status");
+                        }}
+                      />
                     </th>
                     <th className="text-center">Approved</th>
                     {auth.role === "administrator" && (

@@ -36,7 +36,7 @@ const Home = () => {
 
   useEffect(() => {
     setHeroLoad(true);
-    fetch(`${REACT_APP_URL}wp-json/custom/v1/post-details?id=294449`)
+    fetch(`${REACT_APP_URL}wp-json/custom/v1/post-details?id=294595`)
       .then((response) => response.json())
       .then((data) => {
         setHeroPost(data);

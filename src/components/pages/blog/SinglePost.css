@@ -108,3 +108,7 @@ div.comm div.commentBlock p{
     border-radius: 50%;
 }
 
+p img {
+    max-width: 100%;
+    height: auto;
+}

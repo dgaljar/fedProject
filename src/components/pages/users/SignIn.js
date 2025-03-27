@@ -46,6 +46,7 @@ const SignIn = () => {
 
       const data = await response.json();
       setIsLoading(false);
+      console.log(data)
 
       if (data?.code) {
         setError("Wrong E-mail or Password. Try again");

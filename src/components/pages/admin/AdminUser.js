@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useContext } from "react";
 import { searchUsers } from "../../services/api";
 import { Link } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 import AuthContext from "../users/context/AuthProwider";
 import Pagination from "../../services/Pagination";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -10,10 +11,7 @@ import {
   faMagnifyingGlass,
   faTrashCan,
   faPenToSquare,
-  faChevronDown,
   faSort,
-  faC,
-  faPen,
 } from "@fortawesome/free-solid-svg-icons";
 
 const AdminUser = () => {
@@ -26,11 +24,13 @@ const AdminUser = () => {
   const [totalPages, setTotalPages] = useState(null);
   const [totalUsers, setTotalUsers] = useState(0);
   const { auth } = useContext(AuthContext);
+  const [isAscending, setIsAscending] = useState(true);
+  const [sortCondition, setSortCondition] = useState("id");
 
   useEffect(() => {
     setLoading(true);
     fetch(
-      `https://frontend.internetskimarketing.eu/backend/wp-json/wp/v2/users?per_page=10&page=${count}`
+      `https://frontend.internetskimarketing.eu/backend/wp-json/wp/v2/users?per_page=10&page=${count}&orderby=${sortCondition}&order=${isAscending ? "asc" : "desc"}`
     )
       .then((response) => {
         const totalUsersHeader = response.headers.get("X-WP-Total");
@@ -44,7 +44,11 @@ const AdminUser = () => {
         setUsers(data);
         setLoading(false);
       });
-  }, [count]);
+  }, [count, sortCondition, isAscending]);
+
+  if (auth.role === "subscriber") {
+    return <Navigate to="/admin" />;
+  }
 
   const deleteUser = async (userId) => {
     if (!window.confirm(`Delete user ${userId}?`)) return;
@@ -111,9 +115,15 @@ const AdminUser = () => {
       setUsers(searchResults); // Fix: Use correct response format
     } catch (err) {
       setError("Failed to search users...");
+      console.log(error)
     } finally {
       setLoading(false);
     }
+  };
+
+  const toggleCondition = (sortKey) => {
+    setSortCondition(sortKey);
+    setIsAscending((prev) => !prev);
   };
 
   return (
@@ -153,7 +163,6 @@ const AdminUser = () => {
 
           {auth.role === "administrator" && (
             <div className="col-md-6 text-md-end">
-              <button className="btn btn-primary">Create User</button>
               <button
                 className="btn btn-danger ms-3"
                 onClick={handleBulkDelete}
@@ -186,25 +195,28 @@ const AdminUser = () => {
                     <th></th>
                     <th>
                       ID
-                      <a href="#">
-                        <FontAwesomeIcon icon={faSort} />
-                      </a>
+                      <FontAwesomeIcon
+                        icon={faSort}
+                        style={{ cursor: "pointer" }}
+                        onClick={(e) => {
+                          e.preventDefault();
+                          toggleCondition("id");
+                        }}
+                      />
                     </th>
                     <th className="text-center">AVATAR</th>
-                    <th>
+                    <th className="text-center text-md-start">
                       NAME
-                      <a href="#">
-                        <FontAwesomeIcon icon={faSort} />
-                      </a>
+                      <FontAwesomeIcon
+                        icon={faSort}
+                        style={{ cursor: "pointer" }}
+                        onClick={(e) => {
+                          e.preventDefault();
+                          toggleCondition("name");
+                        }}
+                      />
                     </th>
-                    {auth.role === "administrator" && (
-                      <th>
-                        EMAIL
-                        <a href="#">
-                          <FontAwesomeIcon icon={faSort} />
-                        </a>
-                      </th>
-                    )}
+                    {auth.role === "administrator" && <th>EMAIL</th>}
                     <th className="text-center">ADMIN</th>
                     <th colSpan="4"></th>
                   </tr>

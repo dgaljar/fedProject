@@ -37,6 +37,9 @@ const Header = ({ darkMode, toggleDarkMode }) => {
   const logout = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("username");
+    localStorage.removeItem("email");
+    localStorage.removeItem("role");
+    localStorage.removeItem("user_id");
     window.location.reload();
   };
 

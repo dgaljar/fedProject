@@ -49,6 +49,10 @@ function App() {
   useEffect(() => {
     if (!isAdminRoute) {
       import("./App.css");
+  
+      // Remove Admin.css to prevent conflicts
+      const adminStyles = document.querySelector('link[href="./Admin.css"]');
+      if (adminStyles) adminStyles.remove();
     }
   }, [isAdminRoute]);
 

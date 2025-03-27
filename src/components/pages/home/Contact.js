@@ -167,7 +167,7 @@ const Contact = () => {
                   ) : (
                     <div className="col-12 text-center">
                       <ReCAPTCHA
-                        sitekey={process.env.REACT_APP_CAPTCHA_LOCAL} // Replace with your reCAPTCHA site key
+                        sitekey={process.env.REACT_APP_CAPTCHA_BUILD} // Replace with your reCAPTCHA site key
                         onChange={(value) => setCaptchaValue(value)}
                       />
                       {captchaValue && (

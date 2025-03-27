@@ -1,7 +1,6 @@
 import React, { useEffect, useState, useContext } from "react";
 import { useParams, Link } from "react-router-dom";
 import AuthContext from "../users/context/AuthProwider"; // Import Auth Context
-import PostCategory from "../home/home-components/PostCategory";
 import PostAuthor from "../home/home-components/PostAuthor";
 import PostDate from "../home/home-components/PostDate";
 import Loading from "../home/home-components/Loading";
@@ -10,6 +9,7 @@ import Ads from "../home/home-components/Ads";
 import "./SinglePost.css";
 
 const SinglePost = () => {
+  const REACT_APP_URL = process.env.REACT_APP_URL;
   const { slug } = useParams();
   const { auth } = useContext(AuthContext); // Get logged-in user details
   const [post, setPost] = useState(null);
@@ -19,22 +19,20 @@ const SinglePost = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   useEffect(() => {
-    fetch(
-      `https://frontend.internetskimarketing.eu/backend/wp-json/wp/v2/posts?_embed&slug=${slug}`
-    )
+    fetch(`${REACT_APP_URL}wp-json/custom/v1/post-details?slug=${slug}`)
       .then((response) => response.json())
-      .then((data) => setPost(data[0]));
-  }, [slug]);
+      .then((data) => setPost(data.posts[0]));
+  }, [REACT_APP_URL, slug]);
 
   useEffect(() => {
     if (post) {
       fetch(
-        `https://frontend.internetskimarketing.eu/backend/wp-json/wp/v2/comments?post=${post.id}`
+        `${REACT_APP_URL}wp-json/wp/v2/comments?post=${post.id}&orderby=date&order=desc`
       )
         .then((response) => response.json())
         .then((data) => setComments(data));
     }
-  }, [post]);
+  }, [REACT_APP_URL, post]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -90,9 +88,7 @@ const SinglePost = () => {
 
   if (!post) return <Loading />;
 
-  const imgSize =
-    post._embedded?.["wp:featuredmedia"]?.[0]?.media_details?.sizes?.full
-      ?.source_url || post._embedded?.["wp:featuredmedia"]?.[0]?.source_url;
+  const imgSize = post.featured_media?.full || "https://placehold.co/600x400"
 
   return (
     <>
@@ -101,20 +97,25 @@ const SinglePost = () => {
           <div className="row">
             <div className="col-12 px-3">
               <div className="cat-card">
-                <PostCategory id={post.categories} />
+                 <Link
+                              className="btn"
+                              to={`/category/` + post.term_slug}
+                            >
+                              {post.term_name}
+                            </Link>
                 <h1
                   className="my-4"
-                  dangerouslySetInnerHTML={{ __html: post.title.rendered }}
+                  dangerouslySetInnerHTML={{ __html: post.title.rendered}}
                 ></h1>
                 <span>
                   <img
                     className="profile-img"
-                    src={post._embedded.author[0].avatar_urls[48]}
+                    src={post.author.avatar_url}
                     alt="author"
                   />
                   <PostAuthor
-                    name={post._embedded.author?.[0]?.name}
-                    slug={post._embedded.author?.[0]?.slug}
+                    name={post.author.name}
+                    slug={post.author.slug}
                   />
 
                   <PostDate date={post.date} />
@@ -130,7 +131,7 @@ const SinglePost = () => {
           <img
             className="coverimg"
             src={imgSize}
-            alt={post._embedded?.["wp:featuredmedia"]?.[0]?.alt_text}
+            alt={post.title.rendered}
           />
         </div>
       </section>

@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
+import { Navigate } from "react-router-dom";
 import { searchPosts } from "../../services/api";
 import AuthContext from "../users/context/AuthProwider";
 import Pagination from "../../services/Pagination";
@@ -10,13 +11,6 @@ import {
   faTrashCan,
   faPenToSquare,
   faChevronDown,
-  faSort,
-  faUsers,
-  faList,
-  faGears,
-  faChartLine,
-  faComments,
-  faSignsPost,
 } from "@fortawesome/free-solid-svg-icons";
 
 const AdminPost = () => {
@@ -60,6 +54,10 @@ const AdminPost = () => {
 
     fetchPosts();
   }, [count, auth.role, auth.id]);
+
+  if (auth.role === "subscriber") {
+    return <Navigate to="/admin" />;
+  }
 
   const truncateText = (text, limit = 100) => {
     if (!text) return "";
@@ -171,7 +169,6 @@ const AdminPost = () => {
             </div>
           </div>
           <div className="col-md-6 text-md-end">
-            <button className="btn btn-primary">Create Post</button>
             <button
               className="btn btn-danger ms-3"
               onClick={handleBulkDelete}
@@ -225,7 +222,7 @@ const AdminPost = () => {
                       </a>
                     </th>
                     <th className="text-center">Delete</th>
-                    <th className="text-center">Edit</th>
+
                   </tr>
                 </thead>
                 <tbody>
@@ -269,7 +266,7 @@ const AdminPost = () => {
                             <td>{post.term_name}</td>
                             <td>{formattedDate}</td>
                             <td>Published</td>
-                            {auth.role === "administrator" ? (
+                            {auth.role === "administrator" || "author" ? (
                               <td className="text-center">
                                 <button
                                   className="functionButtons"
@@ -286,11 +283,6 @@ const AdminPost = () => {
                             ) : (
                               <></>
                             )}
-                            <td className="text-center">
-                              <a href="edit-post.html">
-                                <FontAwesomeIcon icon={faPenToSquare} />
-                              </a>
-                            </td>
                           </tr>
                         );
                       })

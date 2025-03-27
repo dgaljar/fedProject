@@ -1,5 +1,4 @@
 import { createContext, useState } from "react";
-import { StaticRouterProvider } from "react-router-dom";
 
 const AuthContext = createContext({});
 
@@ -23,7 +22,7 @@ export const AuthProvider = ({ children }) => {
 
   return (
     <AuthContext.Provider value={{ auth, setAuth }}>
-      {children}
+      {children} 
     </AuthContext.Provider>
   );
 };

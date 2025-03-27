@@ -1,4 +1,5 @@
 import React, { useState, useContext, useEffect } from "react";
+import { Navigate } from "react-router-dom";
 import QuillEditor from "./Editor"; // Make sure this is correctly imported
 import AuthContext from "../users/context/AuthProwider";
 
@@ -35,6 +36,8 @@ const AdminAddPost = () => {
     }));
   };
 
+
+
   useEffect(() => {
     fetch(
       "https://frontend.internetskimarketing.eu/backend/wp-json/wp/v2/categories"
@@ -70,12 +73,16 @@ const AdminAddPost = () => {
     }
   };
 
+  if (auth.role === "subscriber") {
+    return <Navigate to="/admin" />;
+  }
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
 
     const formattedDate = new Date(form.date).toISOString();
-    const authorId = 3; // Replace with actual user ID
+    const authorId = auth.id; // Replace with actual user ID
 
     // Upload the image
     const imageFile = document.getElementById("featured-image").files[0]; // Get file from input field
@@ -129,9 +136,7 @@ const AdminAddPost = () => {
       );
     }
   };
-  console.log(form);
-  console.log(date);
-  console.log(auth.id);
+
   return (
     <>
       <div className="container-fluid content mt-4">
